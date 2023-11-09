@@ -1,14 +1,14 @@
 package christmas.domain
 
-import christmas.view.InputView
+import christmas.validator.InputManager
 import christmas.view.OutputView
 
 class EventPlannerProgram {
-    private val inputView = InputView()
+    private val inputManager = InputManager()
     private val outputView = OutputView()
 
     fun run() {
         outputView.printProgramStartMessage()
-        inputView.readDate()
+        val date = inputManager.getValidatedDate()
     }
 }
