@@ -9,5 +9,6 @@ class EventPlannerProgram {
 
     fun run() {
         outputView.printProgramStartMessage()
+        inputView.readDate()
     }
 }
