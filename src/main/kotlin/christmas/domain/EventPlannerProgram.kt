@@ -1,6 +1,6 @@
 package christmas.domain
 
-import christmas.validator.InputManager
+import christmas.InputManager
 import christmas.view.OutputView
 
 class EventPlannerProgram {
@@ -10,5 +10,6 @@ class EventPlannerProgram {
     fun run() {
         outputView.printProgramStartMessage()
         val date = inputManager.getValidatedDate()
+        val order = inputManager.getValidatedOrder()
     }
 }

@@ -1,10 +1,13 @@
-package christmas.validator
+package christmas
 
+import christmas.validator.DateValidator
+import christmas.validator.OrderValidator
 import christmas.view.InputView
 
 class InputManager {
     private val inputView = InputView()
     private val dateValidator = DateValidator()
+    private val orderValidator = OrderValidator()
 
     fun getValidatedDate(): Int {
         return try {
@@ -14,6 +17,17 @@ class InputManager {
         } catch (e: IllegalArgumentException) {
             println(e.message)
             getValidatedDate()
+        }
+    }
+
+    fun getValidatedOrder(): String {
+        return try {
+            val order = inputView.readMenu()
+            orderValidator.validate(order)
+            order
+        } catch (e: IllegalArgumentException) {
+            println(e.message)
+            getValidatedOrder()
         }
     }
 }
