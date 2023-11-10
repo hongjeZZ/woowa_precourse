@@ -10,6 +10,8 @@ class EventPlannerProgram {
     fun run() {
         outputView.printProgramStartMessage()
         val date = inputManager.getValidatedDate()
-        val order = inputManager.getValidatedOrder()
+        val inputOrder = inputManager.getValidatedOrder()
+        val order = Order(inputOrder)
+        outputView.printBenefitPreview(date)
     }
 }
