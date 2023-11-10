@@ -16,6 +16,12 @@ class Order(inputOrder: String) {
         }
     }
 
+    fun getTotalPrice(): Int {
+        return _order.entries.sumOf { (menu, count) ->
+            Menu.getPrice(menu) * count
+        }
+    }
+
     override fun toString(): String {
         return _order.entries.joinToString("\n") { (menu, count) ->
             "${Menu.getName(menu)} ${count}개"
