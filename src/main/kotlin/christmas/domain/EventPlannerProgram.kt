@@ -14,5 +14,6 @@ class EventPlannerProgram {
         val order = Order(inputOrder)
         outputView.printBenefitPreview(date)
         outputView.printOrderDetails(order)
+        outputView.printTotalPrice(order.getTotalPrice())
     }
 }

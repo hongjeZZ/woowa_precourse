@@ -1,6 +1,7 @@
 package christmas.view
 
 import christmas.domain.Order
+import christmas.util.Formatter
 
 class OutputView {
     fun printProgramStartMessage() {
@@ -14,5 +15,10 @@ class OutputView {
     fun printOrderDetails(order: Order) {
         println("\n<주문 메뉴>")
         println(order)
+    }
+
+    fun printTotalPrice(totalPrice: Int) {
+        println("\n<할인 전 총주문 금액>")
+        println(Formatter.formatPrice(totalPrice))
     }
 }
