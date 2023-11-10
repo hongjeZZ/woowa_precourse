@@ -13,5 +13,6 @@ class EventPlannerProgram {
         val inputOrder = inputManager.getValidatedOrder()
         val order = Order(inputOrder)
         outputView.printBenefitPreview(date)
+        outputView.printOrderDetails(order)
     }
 }

@@ -19,13 +19,18 @@ enum class Menu(
     CHAMPAGNE("샴페인", 25_000, "음료");
 
     companion object {
+        fun getName(menu: Menu): String {
+            return menu.menuName
+        }
+        fun getMenu(name: String): Menu {
+            return entries.find { it.menuName == name }!!
+        }
         fun hasMenu(name: String): Boolean {
             return entries.any { it.menuName == name }
         }
 
         fun isBeverage(name: String): Boolean {
-            val menu = entries.find { it.menuName == name }
-            return menu?.type == "음료"
+            return getMenu(name).type == "음료"
         }
     }
 }
