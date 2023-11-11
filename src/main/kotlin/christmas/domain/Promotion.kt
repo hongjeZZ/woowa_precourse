@@ -7,7 +7,9 @@ class Promotion(
     private val totalPrice: TotalPrice,
 ) {
     fun getChristmasDiscount(): Int? {
-        if (canReceiveChristmasDiscount()) return date.getDate() * 100 + 900
+        if (canReceiveChristmasDiscount()) {
+            return date.getDate() * 100 + 900
+        }
         return null
     }
 
@@ -44,12 +46,21 @@ class Promotion(
         return null
     }
 
+    fun getFreeMenuDiscount(): Int? {
+        if (canReceiveFreeMenu()) {
+            return 25_000
+        }
+        return null
+    }
+
     private fun canReceiveSpecialDiscount(): Boolean {
         return canReceiveEvent() && date.isSpecialDay()
     }
 
     fun getFreeMenu(): Order? {
-        if (canReceiveFreeMenu()) return Order("샴페인-1")
+        if (canReceiveFreeMenu()) {
+            return Order("샴페인-1")
+        }
         return null
     }
 
