@@ -1,11 +1,12 @@
 package christmas.domain
 
-import christmas.InputManager
+import christmas.view.InputManager
 import christmas.view.OutputView
 
-class EventPlannerProgram {
-    private val inputManager = InputManager()
-    private val outputView = OutputView()
+class EventPlannerProgram(
+    private val inputManager: InputManager,
+    private val outputView: OutputView,
+) {
     private lateinit var date: Date
     private lateinit var order: Order
     private lateinit var totalPrice: TotalPrice

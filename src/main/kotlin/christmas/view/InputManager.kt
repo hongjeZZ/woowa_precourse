@@ -1,8 +1,7 @@
-package christmas
+package christmas.view
 
 import christmas.validator.DateValidator
 import christmas.validator.OrderValidator
-import christmas.view.InputView
 
 class InputManager {
     private val inputView = InputView()
