@@ -27,4 +27,9 @@ class OutputView {
         println("\n<증정 메뉴>")
         println(freeMenu ?: "없음")
     }
+
+    fun printDiscount(discountReceipt: String) {
+        println("\n<혜택 내역>")
+        println(discountReceipt)
+    }
 }

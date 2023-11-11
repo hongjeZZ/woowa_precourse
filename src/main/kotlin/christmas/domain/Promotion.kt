@@ -1,6 +1,5 @@
 package christmas.domain
 
-
 class Promotion(
     private val order: Order,
     private val date: Date,

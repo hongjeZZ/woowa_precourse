@@ -10,6 +10,7 @@ class EventPlannerProgram {
     private lateinit var order: Order
     private lateinit var totalPrice: TotalPrice
     private lateinit var promotion: Promotion
+    private lateinit var eventManager: EventManager
 
 
     fun run() {
@@ -27,5 +28,8 @@ class EventPlannerProgram {
 
         val freeMenu = promotion.getFreeMenu()
         outputView.printFreeMenu(freeMenu)
+
+        eventManager = EventManager(promotion)
+        outputView.printDiscount(eventManager.issueDiscountReceipt())
     }
 }
