@@ -6,7 +6,7 @@ class Promotion(
     private val date: Date,
     private val totalPrice: TotalPrice,
 ) {
-    fun getChristmasDisCount(): Int? {
+    fun getChristmasDiscount(): Int? {
         if (canReceiveChristmasDiscount()) return date.getDate() * 100 + 900
         return null
     }
@@ -15,7 +15,7 @@ class Promotion(
         return date.isBeforeDate(25) && canReceiveEvent()
     }
 
-    fun getWeekDayDisCount(): Int? {
+    fun getWeekDayDiscount(): Int? {
         if (canReceiveWeekDayDiscount()) {
             return order.getMenuCount("디저트") * 2_023
         }
@@ -26,7 +26,7 @@ class Promotion(
         return canReceiveEvent() && date.isWeekDay()
     }
 
-    fun getWeekendDisCount(): Int? {
+    fun getWeekendDiscount(): Int? {
         if (canReceiveWeekendDiscount()) {
             return order.getMenuCount("메인") * 2_023
         }
@@ -35,6 +35,13 @@ class Promotion(
 
     private fun canReceiveWeekendDiscount(): Boolean {
         return canReceiveEvent() && !date.isWeekDay()
+    }
+
+    fun getSpecialDiscount(): Int? {
+        if (canReceiveSpecialDiscount()) {
+            return 1_000
+        }
+        return null
     }
 
     private fun canReceiveSpecialDiscount(): Boolean {
