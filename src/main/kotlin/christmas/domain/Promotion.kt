@@ -6,6 +6,11 @@ class Promotion(
     private val date: Date,
     private val totalPrice: TotalPrice,
 ) {
+    fun getChristmasDisCount(): Int? {
+        if (canReceiveChristmasDiscount() && canReceiveEvent()) return date.getDate() * 100 + 900
+        return null
+    }
+
     private fun canReceiveChristmasDiscount(): Boolean {
         return date.isBeforeDate(25)
     }
