@@ -6,10 +6,11 @@ import christmas.view.OutputView
 class EventPlannerProgram {
     private val inputManager = InputManager()
     private val outputView = OutputView()
-    private val promotion = Promotion()
-    private lateinit var totalPrice: TotalPrice
-    private lateinit var order: Order
     private lateinit var date: Date
+    private lateinit var order: Order
+    private lateinit var totalPrice: TotalPrice
+    private lateinit var promotion: Promotion
+
 
     fun run() {
         outputView.printProgramStartMessage()
@@ -18,12 +19,13 @@ class EventPlannerProgram {
         val inputOrder = inputManager.getValidatedOrder()
         order = Order(inputOrder)
         totalPrice = order.getTotalPrice()
+        promotion = Promotion(order, date, totalPrice)
 
         outputView.printBenefitPreview(date)
         outputView.printOrderDetails(order)
         outputView.printTotalPrice(totalPrice)
 
-        val freeMenu = promotion.getFreeMenu(totalPrice)
+        val freeMenu = promotion.getFreeMenu()
         outputView.printFreeMenu(freeMenu)
     }
 }
