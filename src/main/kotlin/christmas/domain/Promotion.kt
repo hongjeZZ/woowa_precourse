@@ -27,6 +27,10 @@ class Promotion(
         return canReceiveEvent() && date.isWeekDay()
     }
 
+    private fun canReceiveWeekendDiscount(): Boolean {
+        return canReceiveEvent() && !date.isWeekDay()
+    }
+
     fun getFreeMenu(): Order? {
         if (canReceiveFreeMenu()) return Order("샴페인-1")
         return null
