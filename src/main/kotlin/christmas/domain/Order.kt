@@ -17,6 +17,13 @@ class Order(inputOrder: String) {
         }
     }
 
+    fun getMenuCount(typeName: String): Int {
+        return _order.entries.sumOf { (menu, count) ->
+            if (Menu.getType(menu) == typeName) count else 0
+        }
+    }
+
+
     fun getTotalPrice(): TotalPrice {
         val totalPrice = _order.entries.sumOf { (menu, count) ->
             Menu.getPrice(menu) * count

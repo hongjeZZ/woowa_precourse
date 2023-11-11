@@ -13,10 +13,17 @@ class Promotion(
     }
 
     private fun canReceiveChristmasDiscount(): Boolean {
-        return date.isBeforeDate(25)
+        return date.isBeforeDate(25) && canReceiveEvent()
     }
 
-    fun canReceiveWeekDayDiscount(): Boolean {
+    fun getWeekDayDisCount(): Int? {
+        if (canReceiveWeekDayDiscount()) {
+            return order.getMenuCount("디저트") * 2_023
+        }
+        return null
+    }
+
+    private fun canReceiveWeekDayDiscount(): Boolean {
         return canReceiveEvent() && date.isWeekDay()
     }
 

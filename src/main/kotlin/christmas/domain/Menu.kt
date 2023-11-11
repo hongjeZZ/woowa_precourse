@@ -19,6 +19,10 @@ enum class Menu(
     CHAMPAGNE("샴페인", 25_000, "음료");
 
     companion object {
+        fun getType(menu: Menu): String {
+            return menu.type
+        }
+
         fun getPrice(menu: Menu): Int {
             return menu.price
         }
