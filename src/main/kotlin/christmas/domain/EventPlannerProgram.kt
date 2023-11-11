@@ -31,5 +31,6 @@ class EventPlannerProgram {
 
         eventManager = EventManager(promotion)
         outputView.printDiscount(eventManager.issueDiscountReceipt())
+        outputView.printTotalDiscount(eventManager.getTotalDiscount())
     }
 }

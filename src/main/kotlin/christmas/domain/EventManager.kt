@@ -31,4 +31,6 @@ class EventManager(promotion: Promotion) {
         }
         return "$discountType: -${Formatter.formatPrice(discountAmount)}\n"
     }
+
+    fun getTotalDiscount(): Int = eventDiscounts.sumOf { it.second ?: 0 }
 }
