@@ -3,6 +3,7 @@ package christmas.view
 import christmas.domain.Date
 import christmas.domain.Order
 import christmas.domain.TotalPrice
+import christmas.util.Formatter
 
 class OutputView {
     fun printProgramStartMessage() {
@@ -31,5 +32,10 @@ class OutputView {
     fun printDiscount(discountReceipt: String) {
         println("\n<혜택 내역>")
         println(discountReceipt)
+    }
+
+    fun printTotalDiscount(totalDiscount: Int) {
+        println("<총혜택 금액>")
+        println("-${Formatter.formatPrice(totalDiscount)}")
     }
 }
