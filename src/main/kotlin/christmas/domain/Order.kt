@@ -9,6 +9,7 @@ class Order(inputOrder: String) {
 
     private fun initOrder(inputOrder: String) {
         val orders = inputOrder.split(",")
+
         for (order in orders) {
             val (menuName, count) = order.split("-").map { it.trim() }
             val menu = Menu.getMenu(menuName)
@@ -16,10 +17,11 @@ class Order(inputOrder: String) {
         }
     }
 
-    fun getTotalPrice(): Int {
-        return _order.entries.sumOf { (menu, count) ->
+    fun getTotalPrice(): TotalPrice {
+        val totalPrice = _order.entries.sumOf { (menu, count) ->
             Menu.getPrice(menu) * count
         }
+        return TotalPrice(totalPrice)
     }
 
     override fun toString(): String {
