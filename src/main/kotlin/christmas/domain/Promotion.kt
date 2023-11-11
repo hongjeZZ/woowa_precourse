@@ -7,7 +7,8 @@ class Promotion(
     private val totalPrice: TotalPrice,
 ) {
     fun getChristmasDisCount(): Int? {
-        if (canReceiveChristmasDiscount() && canReceiveEvent()) return date.getDate() * 100 + 900
+        if (canReceiveChristmasDiscount())
+            return date.getDate() * 100 + 900
         return null
     }
 
@@ -15,8 +16,8 @@ class Promotion(
         return date.isBeforeDate(25)
     }
 
-    private fun canReceiveEvent(): Boolean {
-        return totalPrice.isMoreThan(10_000)
+    fun canReceiveWeekDayDiscount(): Boolean {
+        return canReceiveEvent() && date.isWeekDay()
     }
 
     fun getFreeMenu(): Order? {
@@ -26,5 +27,9 @@ class Promotion(
 
     private fun canReceiveFreeMenu(): Boolean {
         return (totalPrice.isMoreThan(120_000))
+    }
+
+    private fun canReceiveEvent(): Boolean {
+        return totalPrice.isMoreThan(10_000)
     }
 }
