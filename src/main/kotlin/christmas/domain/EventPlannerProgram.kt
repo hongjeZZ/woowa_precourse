@@ -6,6 +6,7 @@ import christmas.view.OutputView
 class EventPlannerProgram {
     private val inputManager = InputManager()
     private val outputView = OutputView()
+    private val promotion = Promotion()
     private lateinit var totalPrice: TotalPrice
     private lateinit var order: Order
     private lateinit var date: Date
