@@ -35,7 +35,7 @@ class EventManager(promotion: Promotion) {
             eventDiscounts.forEach { (eventType, discountAmount) ->
                 append(buildDiscount(eventType, discountAmount))
             }
-        }
+        }.trimEnd()
     }
 
     private fun buildDiscount(discountType: String, discountAmount: Int?): String {
