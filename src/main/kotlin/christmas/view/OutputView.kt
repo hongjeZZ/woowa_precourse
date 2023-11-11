@@ -38,4 +38,9 @@ class OutputView {
         println("<총혜택 금액>")
         println("-${Formatter.formatPrice(totalDiscount)}")
     }
+
+    fun printDiscountTotalPrice(discountTotalPrice: Int) {
+        println("\n<할인 후 예상 결제 금액>")
+        println(Formatter.formatPrice(discountTotalPrice))
+    }
 }
