@@ -10,30 +10,47 @@ class EventPlannerProgram(
     private lateinit var date: Date
     private lateinit var order: Order
     private lateinit var totalPrice: TotalPrice
-    private lateinit var promotion: Promotion
+    private lateinit var eventPolicy: EventPolicy
+    private lateinit var eventCalculator: EventCalculator
     private lateinit var eventManager: EventManager
 
 
     fun run() {
+        init()
+        process()
+        displayEventResult()
+    }
+
+    private fun init() {
         outputView.printProgramStartMessage()
-        val inputDate = inputManager.getValidatedDate()
-        date = Date(inputDate)
-        val inputOrder = inputManager.getValidatedOrder()
-        order = Order(inputOrder)
+        date = Date(inputManager.getValidatedDate())
+        order = Order(inputManager.getValidatedOrder())
         totalPrice = order.getTotalPrice()
-        promotion = Promotion(order, date, totalPrice)
+        printUserDetails()
+    }
 
-        outputView.printBenefitPreview(date)
-        outputView.printOrderDetails(order)
-        outputView.printTotalPrice(totalPrice)
+    private fun process() {
+        eventPolicy = EventPolicy(date, totalPrice)
+        eventCalculator = EventCalculator(order, date, eventPolicy)
+        eventManager = EventManager(eventCalculator)
+    }
 
-        val freeMenu = promotion.getFreeMenu()
-        outputView.printFreeMenu(freeMenu)
+    private fun printUserDetails() {
+        outputView.run {
+            printBenefitPreview(date)
+            printOrderDetails(order)
+            printTotalPrice(totalPrice)
+        }
+    }
 
-        eventManager = EventManager(promotion)
-        outputView.printDiscount(eventManager.issueDiscountReceipt())
-        outputView.printTotalDiscount(eventManager.getTotalDiscount())
-        outputView.printDiscountTotalPrice(eventManager.getDiscountTotalPrice(totalPrice,freeMenu))
-        outputView.printBadge(eventManager.createBadge())
+    private fun displayEventResult() {
+        val freeMenu = eventCalculator.getFreeMenu()
+        outputView.run {
+            printFreeMenu(freeMenu)
+            printDiscount(eventManager.issueDiscountReceipt())
+            printTotalDiscount(eventManager.getTotalDiscount())
+            printDiscountTotalPrice(eventManager.getDiscountTotalPrice(totalPrice, freeMenu))
+            printBadge(eventManager.createBadge())
+        }
     }
 }
