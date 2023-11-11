@@ -1,5 +1,6 @@
 package christmas.view
 
+import christmas.domain.Badge
 import christmas.domain.Date
 import christmas.domain.Order
 import christmas.domain.TotalPrice
@@ -42,5 +43,10 @@ class OutputView {
     fun printDiscountTotalPrice(discountTotalPrice: Int) {
         println("\n<할인 후 예상 결제 금액>")
         println(Formatter.formatPrice(discountTotalPrice))
+    }
+
+    fun printBadge(badge: Badge) {
+        println("\n<12월 이벤트 배지>")
+        print(badge)
     }
 }

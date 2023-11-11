@@ -33,5 +33,6 @@ class EventPlannerProgram {
         outputView.printDiscount(eventManager.issueDiscountReceipt())
         outputView.printTotalDiscount(eventManager.getTotalDiscount())
         outputView.printDiscountTotalPrice(eventManager.getDiscountTotalPrice(totalPrice,freeMenu))
+        outputView.printBadge(eventManager.createBadge())
     }
 }
