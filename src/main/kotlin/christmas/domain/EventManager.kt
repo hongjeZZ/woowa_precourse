@@ -3,9 +3,15 @@ package christmas.domain
 import christmas.util.Formatter
 
 class EventManager(promotion: Promotion) {
-    private val eventDiscounts: List<Pair<String, Int?>>
+    private lateinit var eventDiscounts: List<Pair<String, Int?>>
+    private var totalDiscount = 0
 
     init {
+        generateEventDiscounts(promotion)
+        calculateTotalDiscount()
+    }
+
+    private fun generateEventDiscounts(promotion: Promotion) {
         eventDiscounts = listOf(
             "크리스마스 디데이 할인" to promotion.getChristmasDiscount(),
             "평일 할인" to promotion.getWeekDayDiscount(),
@@ -15,9 +21,16 @@ class EventManager(promotion: Promotion) {
         )
     }
 
-    fun issueDiscountReceipt(): String {
-        if (eventDiscounts.all { it.second == null }) return "없음"
+    private fun calculateTotalDiscount() {
+        totalDiscount = eventDiscounts.sumOf { it.second ?: 0 }
+    }
 
+    fun getTotalDiscount(): Int = totalDiscount
+
+    fun issueDiscountReceipt(): String {
+        if (eventDiscounts.all { it.second == null }) {
+            return "없음"
+        }
         return buildString {
             eventDiscounts.forEach { (eventType, discountAmount) ->
                 append(buildDiscount(eventType, discountAmount))
@@ -32,5 +45,10 @@ class EventManager(promotion: Promotion) {
         return "$discountType: -${Formatter.formatPrice(discountAmount)}\n"
     }
 
-    fun getTotalDiscount(): Int = eventDiscounts.sumOf { it.second ?: 0 }
+    fun getDiscountTotalPrice(totalPrice: TotalPrice, freeMenu: Order?): Int {
+        if (freeMenu == null) {
+            return totalPrice.getDiscountPrice(totalDiscount)
+        }
+        return totalPrice.getDiscountPrice(totalDiscount - 25000)
+    }
 }
