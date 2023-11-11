@@ -22,5 +22,8 @@ class EventPlannerProgram {
         outputView.printBenefitPreview(date)
         outputView.printOrderDetails(order)
         outputView.printTotalPrice(totalPrice)
+
+        val freeMenu = promotion.getFreeMenu(totalPrice)
+        outputView.printFreeMenu(freeMenu)
     }
 }

@@ -22,4 +22,9 @@ class OutputView {
         println("\n<할인 전 총주문 금액>")
         println(totalPrice)
     }
+
+    fun printFreeMenu(freeMenu: Order?) {
+        println("\n<증정 메뉴>")
+        println(freeMenu ?: "없음")
+    }
 }
