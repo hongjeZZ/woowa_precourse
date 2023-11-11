@@ -51,4 +51,8 @@ class EventManager(promotion: Promotion) {
         }
         return totalPrice.getDiscountPrice(totalDiscount - 25000)
     }
+
+    fun createBadge(): Badge {
+        return Badge.getBadge(totalDiscount)
+    }
 }
