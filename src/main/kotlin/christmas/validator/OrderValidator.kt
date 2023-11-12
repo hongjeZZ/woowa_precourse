@@ -10,12 +10,16 @@ class OrderValidator {
         val orders = Splitter.splitByComma(inputOrders)
         requireValidOrders(orders)
         val (menus, menuCounts) = splitOrders(orders)
-        menusValidator.validate(menus)
-        menuCountsValidator.validate(menuCounts)
+        requireValidMenuAndCount(menus, menuCounts)
     }
 
     private fun requireValidOrders(orders: List<String>) {
         require(orders.all { it.isNotBlank() }) { "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요." }
+    }
+
+    private fun requireValidMenuAndCount(menus: List<String>, menuCounts: List<Int>) {
+        menuValidator.validate(menus)
+        menuCountValidator.validate(menuCounts)
     }
 
     private fun splitOrders(orders: List<String>): Pair<List<String>, List<Int>> {

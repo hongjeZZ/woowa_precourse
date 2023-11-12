@@ -5,5 +5,5 @@ class TotalPrice(private val _totalPrice: Int) {
 
     fun applyDiscount(discountAmount: Int): Int = _totalPrice - discountAmount
 
-    fun getTotalPrice(): Int = _totalPrice
+    fun getPrice(): Int = _totalPrice
 }

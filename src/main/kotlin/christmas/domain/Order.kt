@@ -22,13 +22,13 @@ class Order(inputOrders: String) {
     fun getOrder(): MutableMap<Menu, Int> = _order
 
     fun getMenuCount(typeName: String): Int {
-        var countSum = 0
+        var sumOfCount = 0
         for ((menu, count) in _order.entries) {
             if (Menu.getType(menu) == typeName) {
-                countSum += count
+                sumOfCount += count
             }
         }
-        return countSum
+        return sumOfCount
     }
 
     fun getTotalPrice(): Int = _order.entries.sumOf { (menu, count) ->

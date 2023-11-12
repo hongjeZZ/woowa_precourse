@@ -9,9 +9,7 @@ enum class Badge(
     TREE("트리", 15_000),
     SANTA("산타", 20_000);
 
-    override fun toString(): String {
-        return badgeName
-    }
+    override fun toString(): String = badgeName
 
     companion object {
         fun getBadge(totalDiscount: Int): Badge {

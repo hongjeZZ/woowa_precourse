@@ -29,7 +29,7 @@ class OutputView {
 
     fun printTotalPrice(totalPrice: TotalPrice) {
         println("\n<할인 전 총주문 금액>")
-        println(Formatter.formatPrice(totalPrice.getTotalPrice()))
+        println(Formatter.formatPrice(totalPrice.getPrice()))
     }
 
     fun printFreeMenu(freeMenu: Order?) {
