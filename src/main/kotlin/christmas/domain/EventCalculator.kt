@@ -1,10 +1,8 @@
 package christmas.domain
 
-class EventCalculator(
-    private val order: Order,
-    private val date: Date,
-    private val eventPolicy: EventPolicy,
-) {
+class EventCalculator(private val eventPolicy: EventPolicy) {
+    private var totalDiscount = 0
+
     fun getFreeMenu(): Order? {
         if (eventPolicy.isEligibleForFreeMenu()) {
             return Order("샴페인-1")
@@ -13,27 +11,25 @@ class EventCalculator(
     }
 
     fun getFreeMenuDiscount(): Int {
-        if (eventPolicy.isEligibleForFreeMenu()) {
-            return 25_000
-        }
-        return 0
+        val freeMenu = getFreeMenu() ?: return 0
+        return freeMenu.getTotalPrice()
     }
 
-    fun getChristmasDiscount(): Int {
+    fun getChristmasDiscount(date: Date): Int {
         if (eventPolicy.isEligibleForChristmasEvent()) {
             return (date.getMultipliedDate(100)) + 900
         }
         return 0
     }
 
-    fun getWeekDayDiscount(): Int {
+    fun getWeekDayDiscount(order: Order): Int {
         if (eventPolicy.isEligibleForWeekDayEvent()) {
             return order.getMenuCount("디저트") * 2_023
         }
         return 0
     }
 
-    fun getWeekendDiscount(): Int {
+    fun getWeekendDiscount(order: Order): Int {
         if (eventPolicy.isEligibleForWeekendEvent()) {
             return order.getMenuCount("메인") * 2_023
         }
@@ -47,8 +43,21 @@ class EventCalculator(
         return 0
     }
 
-    fun getTotalDiscount(): Int {
-        return getFreeMenuDiscount() + getChristmasDiscount() + getWeekDayDiscount() + getWeekendDiscount() +
-                getSpecialDiscount()
+    fun getTotalDiscount(order: Order, date: Date): Int {
+        calculateTotalDiscount(order, date)
+        return totalDiscount
+    }
+
+    private fun calculateTotalDiscount(order: Order, date: Date) {
+        totalDiscount = getFreeMenuDiscount() + getChristmasDiscount(date) + getWeekDayDiscount(order) +
+                getWeekendDiscount(order) + getSpecialDiscount()
+    }
+
+    fun getDiscountTotalPrice(totalPrice: TotalPrice): Int {
+        return totalPrice.applyDiscount(totalDiscount - getFreeMenuDiscount())
+    }
+
+    fun createBadge(): Badge {
+        return Badge.getBadge(totalDiscount)
     }
 }

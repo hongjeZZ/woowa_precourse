@@ -31,11 +31,7 @@ class Order(inputOrders: String) {
         return countSum
     }
 
-
-    fun getTotalPrice(): TotalPrice {
-        val totalPrice = _order.entries.sumOf { (menu, count) ->
+    fun getTotalPrice(): Int = _order.entries.sumOf { (menu, count) ->
             Menu.getPrice(menu) * count
-        }
-        return TotalPrice(totalPrice)
     }
 }
