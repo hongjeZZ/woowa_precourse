@@ -1,13 +1,14 @@
 package christmas.validator
 
+import christmas.util.Splitter
+
 class OrderValidator {
     private val menuValidator = MenuValidator()
     private val menuCountValidator = MenuCountValidator()
 
     fun validate(inputOrders: String) {
-        val orders = inputOrders.split(",")
+        val orders = Splitter.splitByComma(inputOrders)
         requireValidOrders(orders)
-
         val (menus, menuCounts) = splitOrders(orders)
         menusValidator.validate(menus)
         menuCountsValidator.validate(menuCounts)
@@ -19,7 +20,7 @@ class OrderValidator {
 
     private fun splitOrders(orders: List<String>): Pair<List<String>, List<Int>> {
         return try {
-            val ordersSplit = orders.map { it.split("-") }
+            val ordersSplit = orders.map { Splitter.splitByHyphen(it) }
             val menus = ordersSplit.map { it[0].trim() }
             val menuCounts = ordersSplit.map { it[1].trim().toInt() }
             Pair(menus, menuCounts)

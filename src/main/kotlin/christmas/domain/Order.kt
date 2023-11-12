@@ -1,26 +1,32 @@
 package christmas.domain
 
-class Order(inputOrder: String) {
+import christmas.util.Splitter
+
+class Order(inputOrders: String) {
     private val _order = mutableMapOf<Menu, Int>()
 
     init {
-        initOrder(inputOrder)
+        initOrder(inputOrders)
     }
 
-    private fun initOrder(inputOrder: String) {
-        val orders = inputOrder.split(",")
+    private fun initOrder(inputOrders: String) {
+        val orders = Splitter.splitByComma(inputOrders)
 
         for (order in orders) {
-            val (menuName, count) = order.split("-").map { it.trim() }
+            val (menuName, count) = Splitter.splitByHyphen(order).map { it.trim() }
             val menu = Menu.getMenu(menuName)
             _order[menu] = count.toInt()
         }
     }
 
     fun getMenuCount(typeName: String): Int {
-        return _order.entries.sumOf { (menu, count) ->
-            if (Menu.getType(menu) == typeName) count else 0
+        var countSum = 0
+        for ((menu, count) in _order.entries) {
+            if (Menu.getType(menu) == typeName) {
+                countSum += count
+            }
         }
+        return countSum
     }
 
 
