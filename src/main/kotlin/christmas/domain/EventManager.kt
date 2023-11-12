@@ -3,7 +3,7 @@ package christmas.domain
 import christmas.util.Formatter
 
 class EventManager(eventCalculator: EventCalculator) {
-    private lateinit var discountAmounts: List<Pair<String, Int?>>
+    private lateinit var discountAmounts: List<Pair<String, Int>>
     private var totalDiscount = 0
 
     init {
@@ -22,22 +22,22 @@ class EventManager(eventCalculator: EventCalculator) {
     }
 
     private fun calculateTotalDiscount() {
-        totalDiscount = discountAmounts.sumOf { it.second ?: 0 }
+        totalDiscount = discountAmounts.sumOf { it.second }
     }
 
     fun issueDiscountReceipt(): String {
-        if (discountAmounts.all { it.second == null }) {
+        if (totalDiscount == 0) {
             return "없음"
         }
         return buildString {
             discountAmounts.forEach { (eventType, discountAmount) ->
-                append(buildDiscount(eventType, discountAmount))
+                append(buildReceipt(eventType, discountAmount))
             }
         }.trimEnd()
     }
 
-    private fun buildDiscount(discountType: String, discountAmount: Int?): String {
-        if (discountAmount == null || discountAmount == 0) {
+    private fun buildReceipt(discountType: String, discountAmount: Int): String {
+        if (discountAmount == 0) {
             return ""
         }
         return "$discountType: -${Formatter.formatPrice(discountAmount)}\n"
