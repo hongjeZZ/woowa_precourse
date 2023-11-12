@@ -7,7 +7,7 @@ class Date(private val _date: Int) {
 
     fun isBeforeDate(date: Int): Boolean = _date <= date
 
-    fun getDate(): Int = _date
+    fun getMultipliedDate(multiplier: Int): Int = _date * multiplier
 
     override fun toString(): String = _date.toString()
 }
