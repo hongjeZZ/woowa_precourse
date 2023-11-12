@@ -30,7 +30,7 @@ class OutputView {
         println(freeMenu ?: "없음")
     }
 
-    fun printDiscount(discountReceipt: String) {
+    fun printDiscountReceipt(discountReceipt: String) {
         println("\n<혜택 내역>")
         println(discountReceipt)
     }

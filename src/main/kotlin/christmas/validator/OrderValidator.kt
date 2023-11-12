@@ -1,8 +1,8 @@
 package christmas.validator
 
 class OrderValidator {
-    private val menusValidator = MenuValidator()
-    private val menuCountsValidator = MenuCountValidator()
+    private val menuValidator = MenuValidator()
+    private val menuCountValidator = MenuCountValidator()
 
     fun validate(inputOrders: String) {
         val orders = inputOrders.split(",")

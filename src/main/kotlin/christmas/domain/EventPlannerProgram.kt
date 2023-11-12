@@ -16,41 +16,37 @@ class EventPlannerProgram(
 
 
     fun run() {
-        init()
-        process()
+        getUserDetails()
+        displayUserDetails()
+        setupEventServices()
         displayEventResult()
     }
 
-    private fun init() {
+    private fun getUserDetails() {
         outputView.printProgramStartMessage()
         date = Date(inputView.getValidatedDate())
         order = Order(inputView.getValidatedOrder())
         totalPrice = order.getTotalPrice()
-        printUserDetails()
     }
 
-    private fun process() {
+    private fun displayUserDetails() {
+        outputView.printBenefitPreview(date)
+        outputView.printOrderDetails(order)
+        outputView.printTotalPrice(totalPrice)
+    }
+
+    private fun setupEventServices() {
         eventPolicy = EventPolicy(date, totalPrice)
         eventCalculator = EventCalculator(order, date, eventPolicy)
         eventManager = EventManager(eventCalculator)
     }
 
-    private fun printUserDetails() {
-        outputView.run {
-            printBenefitPreview(date)
-            printOrderDetails(order)
-            printTotalPrice(totalPrice)
-        }
-    }
-
     private fun displayEventResult() {
         val freeMenu = eventCalculator.getFreeMenu()
-        outputView.run {
-            printFreeMenu(freeMenu)
-            printDiscount(eventManager.issueDiscountReceipt())
-            printTotalDiscount(eventManager.getTotalDiscount())
-            printDiscountTotalPrice(eventManager.getDiscountTotalPrice(totalPrice, freeMenu))
-            printBadge(eventManager.createBadge())
-        }
+        outputView.printFreeMenu(freeMenu)
+        outputView.printDiscountReceipt(eventManager.issueDiscountReceipt())
+        outputView.printTotalDiscount(eventManager.getTotalDiscount())
+        outputView.printDiscountTotalPrice(eventManager.getDiscountTotalPrice(totalPrice, freeMenu))
+        outputView.printBadge(eventManager.createBadge())
     }
 }
