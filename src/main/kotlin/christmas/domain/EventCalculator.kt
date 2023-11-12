@@ -3,11 +3,25 @@ package christmas.domain
 class EventCalculator(
     private val order: Order,
     private val date: Date,
-    private val eventPolicy: EventPolicy
+    private val eventPolicy: EventPolicy,
 ) {
+    fun getFreeMenu(): Order? {
+        if (eventPolicy.isEligibleForFreeMenu()) {
+            return Order("샴페인-1")
+        }
+        return null
+    }
+
+    fun getFreeMenuDiscount(): Int {
+        if (eventPolicy.isEligibleForFreeMenu()) {
+            return 25_000
+        }
+        return 0
+    }
+
     fun getChristmasDiscount(): Int {
         if (eventPolicy.isEligibleForChristmasEvent()) {
-            return (date.getDate() - 1) * 100 + 1_000
+            return (date.getMultipliedDate(100)) + 900
         }
         return 0
     }
@@ -33,17 +47,8 @@ class EventCalculator(
         return 0
     }
 
-    fun getFreeMenuDiscount(): Int {
-        if (eventPolicy.isEligibleForFreeMenu()) {
-            return 25_000
-        }
-        return 0
-    }
-
-    fun getFreeMenu(): Order? {
-        if (eventPolicy.isEligibleForFreeMenu()) {
-            return Order("샴페인-1")
-        }
-        return null
+    fun getTotalDiscount(): Int {
+        return getFreeMenuDiscount() + getChristmasDiscount() + getWeekDayDiscount() + getWeekendDiscount() +
+                getSpecialDiscount()
     }
 }

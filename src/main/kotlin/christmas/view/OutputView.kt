@@ -2,6 +2,7 @@ package christmas.view
 
 import christmas.domain.Badge
 import christmas.domain.Date
+import christmas.domain.Menu
 import christmas.domain.Order
 import christmas.domain.TotalPrice
 import christmas.util.Formatter
@@ -17,27 +18,70 @@ class OutputView {
 
     fun printOrderDetails(order: Order) {
         println("\n<주문 메뉴>")
-        println(order)
+        printOrder(order)
+    }
+
+    private fun printOrder(order: Order) {
+        order.getOrder().entries.forEach { (menu, count) ->
+            println("${Menu.getName(menu)} ${count}개")
+        }
     }
 
     fun printTotalPrice(totalPrice: TotalPrice) {
         println("\n<할인 전 총주문 금액>")
-        println(totalPrice)
+        println(Formatter.formatPrice(totalPrice.getTotalPrice()))
     }
 
     fun printFreeMenu(freeMenu: Order?) {
         println("\n<증정 메뉴>")
-        println(freeMenu ?: "없음")
+        freeMenu?.let { printOrder(it) } ?: println("없음")
     }
 
-    fun printDiscountReceipt(discountReceipt: String) {
+    fun printBenefitsDetails() {
         println("\n<혜택 내역>")
-        println(discountReceipt)
+    }
+
+    fun printChristmasDiscount(discount: Int) {
+        if (discount != 0) {
+            println("크리스마스할인: ${Formatter.formatDiscount(discount)}")
+        }
+    }
+
+    fun printWeekDayDiscountDiscount(discount: Int) {
+        if (discount != 0) {
+            println("평일 할인: ${Formatter.formatDiscount(discount)}")
+        }
+    }
+
+    fun printWeekendDiscount(discount: Int) {
+        if (discount != 0) {
+            println("주말 할인: ${Formatter.formatDiscount(discount)}")
+        }
+    }
+
+    fun printSpecialDiscount(discount: Int) {
+        if (discount != 0) {
+            println("특별 할인: ${Formatter.formatDiscount(discount)}")
+        }
+    }
+
+    fun printFreeMenuDiscount(discount: Int) {
+        if (discount != 0) {
+            println("증정 이벤트: ${Formatter.formatDiscount(discount)}")
+        }
     }
 
     fun printTotalDiscount(totalDiscount: Int) {
         println("\n<총혜택 금액>")
-        println(Formatter.formatDiscount(totalDiscount))
+        if (totalDiscount != 0) {
+            println(Formatter.formatDiscount(totalDiscount))
+            return
+        }
+        println(Formatter.formatPrice(totalDiscount))
+    }
+
+    fun printNone() {
+        println("없음")
     }
 
     fun printDiscountTotalPrice(discountTotalPrice: Int) {

@@ -12,10 +12,6 @@ object Formatter {
     }
 
     fun formatDiscount(discount: Int): String {
-        if (discount == 0) {
-            decimalFormat.applyPattern(DECIMAL_PATTERN)
-            return decimalFormat.format(discount)
-        }
         decimalFormat.applyPattern(DISCOUNT_PATTERN)
         return decimalFormat.format(discount)
     }

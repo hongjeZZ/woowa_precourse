@@ -19,6 +19,8 @@ class Order(inputOrders: String) {
         }
     }
 
+    fun getOrder(): MutableMap<Menu, Int> = _order
+
     fun getMenuCount(typeName: String): Int {
         var countSum = 0
         for ((menu, count) in _order.entries) {
@@ -35,11 +37,5 @@ class Order(inputOrders: String) {
             Menu.getPrice(menu) * count
         }
         return TotalPrice(totalPrice)
-    }
-
-    override fun toString(): String {
-        return _order.entries.joinToString("\n") { (menu, count) ->
-            "${Menu.getName(menu)} ${count}개"
-        }
     }
 }
