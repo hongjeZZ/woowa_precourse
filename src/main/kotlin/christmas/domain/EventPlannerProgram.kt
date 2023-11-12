@@ -1,10 +1,10 @@
 package christmas.domain
 
-import christmas.view.InputManager
+import christmas.view.InputView
 import christmas.view.OutputView
 
 class EventPlannerProgram(
-    private val inputManager: InputManager,
+    private val inputView: InputView,
     private val outputView: OutputView,
 ) {
     private lateinit var date: Date
@@ -23,8 +23,8 @@ class EventPlannerProgram(
 
     private fun init() {
         outputView.printProgramStartMessage()
-        date = Date(inputManager.getValidatedDate())
-        order = Order(inputManager.getValidatedOrder())
+        date = Date(inputView.getValidatedDate())
+        order = Order(inputView.getValidatedOrder())
         totalPrice = order.getTotalPrice()
         printUserDetails()
     }

@@ -1,10 +1,10 @@
 package christmas
 
 import christmas.domain.EventPlannerProgram
-import christmas.view.InputManager
+import christmas.view.InputView
 import christmas.view.OutputView
 
 fun main() {
-    val eventPlannerProgram = EventPlannerProgram(InputManager(), OutputView())
+    val eventPlannerProgram = EventPlannerProgram(InputView(), OutputView())
     eventPlannerProgram.run()
 }
