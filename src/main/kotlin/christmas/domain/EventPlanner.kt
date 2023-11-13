@@ -25,10 +25,17 @@ class EventManager(order: Order, date: Date, totalPrice: TotalPrice) {
     }
 
     fun getDiscounts(): List<Int> {
-        return eventCalculators.map { it.getDiscount() } + giveawayEventCalculator.getDiscount()
+        return eventCalculators.map { eventCalculator ->
+            eventCalculator.getDiscount()
+        } + giveawayEventCalculator.getDiscount()
     }
 
-    fun getGiveawayMenu(): Order? = giveawayEventCalculator.getGiveawayMenu()
+    fun getGiveawayMenu(): Order? {
+        if (giveawayEventCalculator.isEligibleForEvent()) {
+            return Order("샴페인-1")
+        }
+        return null
+    }
 
     fun getTotalDiscount(): Int = totalDiscount
 
