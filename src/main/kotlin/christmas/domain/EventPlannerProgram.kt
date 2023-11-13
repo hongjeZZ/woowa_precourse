@@ -10,13 +10,11 @@ class EventPlannerProgram(
     private lateinit var date: Date
     private lateinit var order: Order
     private lateinit var totalPrice: TotalPrice
-    private lateinit var eventPolicy: EventPolicy
-    private lateinit var eventCalculator: EventCalculator
+    private lateinit var eventManager: EventManager
 
     fun run() {
         getUserDetails()
         displayUserDetails()
-        setupEventServices()
         displayEventResult()
     }
 
@@ -33,30 +31,12 @@ class EventPlannerProgram(
         outputView.printTotalPrice(totalPrice)
     }
 
-    private fun setupEventServices() {
-        eventPolicy = EventPolicy(date, totalPrice)
-        eventCalculator = EventCalculator(eventPolicy)
-    }
-
     private fun displayEventResult() {
-        val totalDiscount = eventCalculator.getTotalDiscount(order,date)
-        outputView.printFreeMenu(eventCalculator.getFreeMenu())
-        printDiscounts(totalDiscount)
-        outputView.printTotalDiscount(totalDiscount)
-        outputView.printDiscountTotalPrice(eventCalculator.getDiscountTotalPrice(totalPrice))
-        outputView.printBadge(eventCalculator.createBadge())
-    }
-
-    private fun printDiscounts(totalDiscount: Int) {
-        outputView.printBenefitsDetails()
-        if (totalDiscount != 0) {
-            outputView.printChristmasDiscount(eventCalculator.getChristmasDiscount(date))
-            outputView.printWeekDayDiscountDiscount(eventCalculator.getWeekDayDiscount(order))
-            outputView.printWeekendDiscount(eventCalculator.getWeekendDiscount(order))
-            outputView.printSpecialDiscount(eventCalculator.getSpecialDiscount())
-            outputView.printFreeMenuDiscount(eventCalculator.getFreeMenuDiscount())
-            return
-        }
-        outputView.printNone()
+        eventManager = EventManager(order, date, totalPrice)
+        outputView.printGiveawayMenu(eventManager.getGiveawayMenu())
+        outputView.printDiscountDetails(eventManager.getDiscounts())
+        outputView.printTotalDiscount(eventManager.getTotalDiscount())
+        outputView.printFinalPrice(eventManager.getFinalPrice(totalPrice))
+        outputView.printBadge(eventManager.createBadge())
     }
 }

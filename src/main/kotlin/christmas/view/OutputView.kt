@@ -32,42 +32,31 @@ class OutputView {
         println(Formatter.formatPrice(totalPrice.getPrice()))
     }
 
-    fun printFreeMenu(freeMenu: Order?) {
+    fun printGiveawayMenu(giveawayMenu: Order?) {
         println("\n<증정 메뉴>")
-        freeMenu?.let { printOrder(it) } ?: println("없음")
+        giveawayMenu?.let { printOrder(it) } ?: printNone()
     }
 
-    fun printBenefitsDetails() {
+    fun printDiscountDetails(discounts: List<Int>) {
         println("\n<혜택 내역>")
-    }
-
-    fun printChristmasDiscount(discount: Int) {
-        if (discount != 0) {
-            println("크리스마스할인: ${Formatter.formatDiscount(discount)}")
+        if (discounts.sum() != 0) {
+            printDiscount("크리스마스할인", discounts[0])
+            printDiscount("평일 할인", discounts[1])
+            printDiscount("주말 할인", discounts[2])
+            printDiscount("특별 할인", discounts[3])
+            printDiscount("증정 이벤트", discounts[4])
+            return
         }
+        printNone()
     }
 
-    fun printWeekDayDiscountDiscount(discount: Int) {
-        if (discount != 0) {
-            println("평일 할인: ${Formatter.formatDiscount(discount)}")
-        }
+    private fun printNone() {
+        println("없음")
     }
 
-    fun printWeekendDiscount(discount: Int) {
+    private fun printDiscount(name: String, discount: Int) {
         if (discount != 0) {
-            println("주말 할인: ${Formatter.formatDiscount(discount)}")
-        }
-    }
-
-    fun printSpecialDiscount(discount: Int) {
-        if (discount != 0) {
-            println("특별 할인: ${Formatter.formatDiscount(discount)}")
-        }
-    }
-
-    fun printFreeMenuDiscount(discount: Int) {
-        if (discount != 0) {
-            println("증정 이벤트: ${Formatter.formatDiscount(discount)}")
+            println("$name: ${Formatter.formatDiscount(discount)}")
         }
     }
 
@@ -80,13 +69,9 @@ class OutputView {
         println(Formatter.formatPrice(totalDiscount))
     }
 
-    fun printNone() {
-        println("없음")
-    }
-
-    fun printDiscountTotalPrice(discountTotalPrice: Int) {
+    fun printFinalPrice(finalPrice: Int) {
         println("\n<할인 후 예상 결제 금액>")
-        println(Formatter.formatPrice(discountTotalPrice))
+        println(Formatter.formatPrice(finalPrice))
     }
 
     fun printBadge(badge: Badge) {
