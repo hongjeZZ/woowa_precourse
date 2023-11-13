@@ -1,4 +1,4 @@
-package christmas.domain.eventCalculator
+package christmas.domain
 
 import christmas.domain.TotalPrice
 import org.assertj.core.api.Assertions
