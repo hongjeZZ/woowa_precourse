@@ -2,7 +2,7 @@ package christmas.domain
 
 import christmas.domain.eventCalculator.*
 
-class EventManager(order: Order, date: Date, totalPrice: TotalPrice) {
+class EventPlanner(order: Order, date: Date, totalPrice: TotalPrice) {
     private val eventCalculators = setCalculators(order, date, totalPrice)
     private val giveawayEventCalculator = GiveawayEventCalculator(totalPrice)
     private var totalDiscount = 0

@@ -6,6 +6,7 @@ object Formatter {
     private const val DECIMAL_PATTERN = "#,###원"
     private const val DISCOUNT_PATTERN = "-$DECIMAL_PATTERN"
     private val decimalFormat = DecimalFormat()
+
     fun formatPrice(price: Int): String {
         decimalFormat.applyPattern(DECIMAL_PATTERN)
         return decimalFormat.format(price)

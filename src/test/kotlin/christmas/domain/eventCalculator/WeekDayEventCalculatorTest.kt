@@ -25,7 +25,7 @@ class WeekDayEventCalculatorTest {
     @ParameterizedTest
     @CsvSource(
         "초코케이크-1 : 2023",
-        "초코케이크-1, 아이스크림 -1 : 4046",
+        "초코케이크-1, 아이스크림-1 : 4046",
         "타파스-1 : 0",
         "시저샐러드-1 : 0",
         "바비큐립-1, 아이스크림-1 : 2023",

@@ -10,7 +10,7 @@ class EventPlannerProgram(
     private lateinit var date: Date
     private lateinit var order: Order
     private lateinit var totalPrice: TotalPrice
-    private lateinit var eventManager: EventManager
+    private lateinit var eventPlanner: EventPlanner
 
     fun run() {
         getUserDetails()
@@ -26,17 +26,22 @@ class EventPlannerProgram(
     }
 
     private fun displayUserDetails() {
-        outputView.printBenefitPreview(date)
-        outputView.printOrderDetails(order)
-        outputView.printTotalPrice(totalPrice)
+        outputView.run {
+            printBenefitPreview(date)
+            printOrderDetails(order)
+            printTotalPrice(totalPrice)
+        }
     }
 
     private fun displayEventResult() {
-        eventManager = EventManager(order, date, totalPrice)
-        outputView.printGiveawayMenu(eventManager.getGiveawayMenu())
-        outputView.printDiscountDetails(eventManager.getDiscounts())
-        outputView.printTotalDiscount(eventManager.getTotalDiscount())
-        outputView.printFinalPrice(eventManager.getFinalPrice(totalPrice))
-        outputView.printBadge(eventManager.createBadge())
+        eventPlanner = EventPlanner(order, date, totalPrice)
+
+        outputView.run {
+            printGiveawayMenu(eventPlanner.getGiveawayMenu())
+            printDiscountDetails(eventPlanner.getDiscounts())
+            printTotalDiscount(eventPlanner.getTotalDiscount())
+            printFinalPrice(eventPlanner.getFinalPrice(totalPrice))
+            printBadge(eventPlanner.createBadge())
+        }
     }
 }
