@@ -39,6 +39,7 @@ class OrderTest {
     )
     fun `총 주문 금액을 계산하는 기능 테스트`(inputOrders: String, expectedPrice: Int) {
         order = Order(inputOrders)
+
         assertThat(order.getTotalPrice()).isEqualTo(expectedPrice)
     }
 }

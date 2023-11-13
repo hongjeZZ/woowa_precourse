@@ -23,6 +23,7 @@ class MenuTest {
     )
     fun `메뉴 이름을 통해 메뉴를 생성하는 기능 테스트`(menuName: String, expectedMenu: Menu) {
         val menu = Menu.getMenu(menuName)
+
         assertThat(menu).isEqualTo(expectedMenu)
     }
 

@@ -15,6 +15,7 @@ class EventCalculatorTest {
     fun `이벤트 참여 자격이 되는지 판별하는 기능 테스트`(price: Int, expected: Boolean) {
         val totalPrice = TotalPrice(price)
         val testEventCalculator = TestEventCalculator(totalPrice)
+
         assertThat(testEventCalculator.isEligibleForEvent()).isEqualTo(expected)
     }
 }
