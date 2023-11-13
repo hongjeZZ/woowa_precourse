@@ -9,5 +9,5 @@ class Date(private val _date: Int) {
 
     fun getMultipliedDate(multiplier: Int): Int = _date * multiplier
 
-    override fun toString(): String = _date.toString()
+    override fun toString(): String = _date.toString() + "일"
 }
