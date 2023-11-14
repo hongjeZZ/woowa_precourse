@@ -1,6 +1,5 @@
-package christmas.domain.eventCalculator
+package christmas.domain
 
-import christmas.domain.Badge
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -17,8 +16,15 @@ class BadgeTest {
         "20_000, SANTA",
         "25_000, SANTA"
     )
-    fun `뱃지를 반환하는 기능 테스트`(totalDiscount: Int, expectedBadge: Badge) {
-        assertThat(Badge.getBadge(totalDiscount)).isEqualTo(expectedBadge)
+    fun `뱃지를 반환하는 기능 테스트`(
+        totalDiscount: Int,
+        expectedBadge: Badge
+    ) {
+        // When
+        val resultBadge = Badge.getBadge(totalDiscount)
+
+        // Then
+        assertThat(resultBadge).isEqualTo(expectedBadge)
     }
 
     @ParameterizedTest
@@ -28,7 +34,14 @@ class BadgeTest {
         "TREE, 트리",
         "SANTA, 산타",
     )
-    fun `뱃지 이름을 반환하는 기능 테스트`(badge: Badge, expectedName: String) {
-        assertThat(badge.getName(badge)).isEqualTo(expectedName)
+    fun `뱃지 이름을 반환하는 기능 테스트`(
+        badge: Badge,
+        expectedName: String
+    ) {
+        // When
+        val resultName = badge.getName(badge)
+
+        // Then
+        assertThat(resultName).isEqualTo(expectedName)
     }
 }

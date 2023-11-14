@@ -5,20 +5,26 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 class DateTest {
+    private lateinit var date: Date
     @ParameterizedTest
     @CsvSource(
         "1, false",
         "2, false",
         "3, true",
         "4, true",
-        "5, true",
-        "6, true",
-        "7, true"
+        "17, true",
+        "22, false",
+        "31, true"
     )
     fun `날짜가 평일이면 true, 주말이면 false를 반환한다`(dateNumber: Int, expected: Boolean) {
-        val date = Date(dateNumber)
+        // Given
+        date = Date(dateNumber)
 
-        assertThat(date.isWeekDay()).isEqualTo(expected)
+        // When
+        val result = date.isWeekDay()
+
+        // Then
+        assertThat(result).isEqualTo(expected)
     }
 
     @ParameterizedTest
@@ -34,9 +40,14 @@ class DateTest {
         "31, true"
     )
     fun `날짜가 특별 날짜면 true, 아니면 false를 반환한다`(dateNumber: Int, expected: Boolean) {
-        val date = Date(dateNumber)
+        // Given
+        date = Date(dateNumber)
 
-        assertThat(date.isSpecialDay()).isEqualTo(expected)
+        // When
+        val result = date.isSpecialDay()
+
+        // Then
+        assertThat(result).isEqualTo(expected)
     }
 
     @ParameterizedTest
@@ -47,21 +58,31 @@ class DateTest {
         "31, false"
     )
     fun `날짜가 25일 이전이면 true, 아니면 false를 반환한다`(dateNumber: Int, expected: Boolean) {
-        val date = Date(dateNumber)
+        // Given
+        date = Date(dateNumber)
 
-        assertThat(date.isBeforeChristmas()).isEqualTo(expected)
+        // When
+        val result = date.isBeforeChristmas()
+
+        // Then
+        assertThat(result).isEqualTo(expected)
     }
 
     @ParameterizedTest
     @CsvSource(
         "100, 100",
-        "1500, 1500",
-        "9000, 9000"
+        "1_500, 1_500",
+        "9_000, 9_000"
     )
     fun `날짜와 곱셈 단위를 곱한 값을 반환한다`(multiplier: Int, expectedValue: Int) {
-        val date = Date(1)
+        // Given
+        date = Date(1)
 
-        assertThat(date.getMultipliedDate(multiplier)).isEqualTo(expectedValue)
+        // When
+        val multipliedDate = date.getMultipliedDate(multiplier)
+
+        // Then
+        assertThat(multipliedDate).isEqualTo(expectedValue)
     }
 
     @ParameterizedTest
@@ -71,8 +92,13 @@ class DateTest {
         "31, 31일"
     )
     fun `날짜를 문자열로 반환한다`(dateNumber: Int,expectedString: String) {
-        val date = Date(dateNumber)
+        // Given
+        date = Date(dateNumber)
 
-        assertThat(date.toString()).isEqualTo(expectedString)
+        // When
+        val dateString = date.toString()
+
+        // Then
+        assertThat(dateString).isEqualTo(expectedString)
     }
 }

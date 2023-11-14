@@ -11,11 +11,21 @@ class EventCalculatorTest {
     }
 
     @ParameterizedTest
-    @CsvSource("9000, false", "11000,true")
+    @CsvSource(
+        "0, false",
+        "9_000, false",
+        "11_000, true",
+        "30_000, true"
+    )
     fun `이벤트 참여 자격이 되는지 판별하는 기능 테스트`(price: Int, expected: Boolean) {
+        // Given
         val totalPrice = TotalPrice(price)
         val testEventCalculator = TestEventCalculator(totalPrice)
 
-        assertThat(testEventCalculator.isEligibleForEvent()).isEqualTo(expected)
+        // When
+        val result = testEventCalculator.isEligibleForEvent()
+
+        // Then
+        assertThat(result).isEqualTo(expected)
     }
 }

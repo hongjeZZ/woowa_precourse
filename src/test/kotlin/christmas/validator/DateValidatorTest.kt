@@ -9,7 +9,7 @@ class DateValidatorTest {
     private val validator = DateValidator()
 
     @ParameterizedTest
-    @ValueSource(strings = ["", "test", " "])
+    @ValueSource(strings = ["", "test", " ", "-1"])
     fun `날짜 검증 테스트 - 숫자가 아닌 형식을 입력한 경우`(date: String) {
         assertThrows<IllegalArgumentException> { validator.validate(date) }.also { exception ->
             assertThat(exception.message).contains("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.")

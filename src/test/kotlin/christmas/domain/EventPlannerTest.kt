@@ -43,11 +43,16 @@ class EventPlannerTest {
         orderInput: String,
         dateNumber: Int
     ) {
+        // Given
         initEventPlanner(orderInput, dateNumber)
         initCalculators(order, date, totalPrice)
         val expectedDiscounts = calculators.map { it.getDiscount() }
 
-        assertThat(eventPlanner.getDiscounts()).isEqualTo(expectedDiscounts)
+        // When
+        val resultDiscounts = eventPlanner.getDiscounts()
+
+        // Then
+        assertThat(resultDiscounts).isEqualTo(expectedDiscounts)
     }
 
     @ParameterizedTest(name = "{index} => 주문: {0}, 날짜: {1}")
@@ -64,11 +69,16 @@ class EventPlannerTest {
         orderInput: String,
         dateNumber: Int
     ) {
+        // Given
         initEventPlanner(orderInput, dateNumber)
         initCalculators(order, date, totalPrice)
         val expectedTotalDiscount = calculators.sumOf { it.getDiscount() }
 
-        assertThat(eventPlanner.getTotalDiscount()).isEqualTo(expectedTotalDiscount)
+        // When
+        val resultTotalDiscount = eventPlanner.getTotalDiscount()
+
+        // Then
+        assertThat(resultTotalDiscount).isEqualTo(expectedTotalDiscount)
     }
 
     @ParameterizedTest(name = "{index} => 주문: {0}, 날짜: {1}")
@@ -85,12 +95,19 @@ class EventPlannerTest {
         orderInput: String,
         dateNumber: Int
     ) {
+        // Given
         initEventPlanner(orderInput, dateNumber)
         val giveawayEventCalculator = GiveawayEventCalculator(totalPrice)
         val expectedFinalPrice =
             totalPrice.getPrice() - (eventPlanner.getTotalDiscount() - (giveawayEventCalculator.getDiscount()))
-        assertThat(eventPlanner.getFinalPrice(totalPrice)).isEqualTo(expectedFinalPrice)
+
+        // When
+        val resultFinalPrice = eventPlanner.getFinalPrice(totalPrice)
+
+        // Then
+        assertThat(resultFinalPrice).isEqualTo(expectedFinalPrice)
     }
+
 
     @ParameterizedTest
     @CsvSource(
@@ -100,10 +117,14 @@ class EventPlannerTest {
         delimiter = ':'
     )
     fun `증정 메뉴 반환하는 기능 테스트 - 증정 메뉴를 반환하는 경우`(orderInput: String) {
+        // Given
         initEventPlanner(orderInput, 1)
-        val freeMenu = eventPlanner.getGiveawayMenu()
-        val expectedFreeMenu = Order("샴페인-1").getOrder()
 
+        // When
+        val freeMenu = eventPlanner.getGiveawayMenu()
+
+        // Then
+        val expectedFreeMenu = Order("샴페인-1").getOrder()
         assertThat(freeMenu?.getOrder()).isEqualTo(expectedFreeMenu)
     }
 
@@ -115,11 +136,15 @@ class EventPlannerTest {
         delimiter = ':'
     )
     fun `증정 메뉴 반환하는 기능 테스트 - null을 반환하는 경우`(orderInput: String) {
+        // Given
         initEventPlanner(orderInput, 1)
         totalPrice = TotalPrice(order.getTotalPrice())
         eventPlanner = EventPlanner(order, date, totalPrice)
+
+        // When
         val freeMenu = eventPlanner.getGiveawayMenu()
 
+        // Then
         assertThat(freeMenu).isNull()
     }
 

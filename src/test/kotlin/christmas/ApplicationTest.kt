@@ -47,6 +47,22 @@ class ApplicationTest : NsTest() {
         }
     }
 
+    @Test
+    fun `증정 메뉴 없음 출력`() {
+        assertSimpleTest {
+            run("26", "타파스-1,제로콜라-1")
+            assertThat(output()).contains("<증정 메뉴>$LINE_SEPARATOR".toString() + "없음")
+        }
+    }
+
+    @Test
+    fun `총혜택 금액 출력`() {
+        assertSimpleTest {
+            run("26", "타파스-1,제로콜라-1")
+            assertThat(output()).contains("<총혜택 금액>$LINE_SEPARATOR".toString() + "0원")
+        }
+    }
+
     override fun runMain() {
         main()
     }

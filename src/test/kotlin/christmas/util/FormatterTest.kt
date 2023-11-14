@@ -14,7 +14,11 @@ class FormatterTest {
         delimiter = ':'
     )
     fun `가격 포맷 기능 테스트`(price: Int, expectedString: String) {
-        assertThat(Formatter.formatPrice(price)).isEqualTo(expectedString)
+        // When
+        val result = Formatter.formatPrice(price)
+
+        // Then
+        assertThat(result).isEqualTo(expectedString)
     }
 
     @ParameterizedTest
@@ -26,6 +30,10 @@ class FormatterTest {
         delimiter = ':'
     )
     fun `할인 금액 포맷 기능 테스트`(discount: Int, expectedString: String) {
-        assertThat(Formatter.formatDiscount(discount)).isEqualTo(expectedString)
+        // When
+        val result = Formatter.formatDiscount(discount)
+
+        // Then
+        assertThat(result).isEqualTo(expectedString)
     }
 }

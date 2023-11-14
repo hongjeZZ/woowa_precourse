@@ -1,6 +1,5 @@
 package christmas.domain
 
-import christmas.domain.Menu
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -22,8 +21,10 @@ class MenuTest {
         "샴페인, CHAMPAGNE"
     )
     fun `메뉴 이름을 통해 메뉴를 생성하는 기능 테스트`(menuName: String, expectedMenu: Menu) {
+        // When
         val menu = Menu.getMenu(menuName)
 
+        // Then
         assertThat(menu).isEqualTo(expectedMenu)
     }
 
@@ -43,26 +44,34 @@ class MenuTest {
         "CHAMPAGNE, 음료"
     )
     fun `메뉴를 통해 타입을 가져오는 기능 테스트`(menu: Menu, expectedType: String) {
-        assertThat(Menu.getType(menu)).isEqualTo(expectedType)
+        // When
+        val typeName = Menu.getType(menu)
+
+        // Then
+        assertThat(typeName).isEqualTo(expectedType)
     }
 
     @ParameterizedTest
     @CsvSource(
-        "MUSHROOM_SOUP, 6000",
-        "TAPAS, 5500",
-        "CAESAR_SALAD, 8000",
-        "T_BONE_STEAK, 55000",
-        "BBQ_RIBS, 54000",
-        "SEAFOOD_PASTA, 35000",
-        "CHRISTMAS_PASTA, 25000",
-        "CHOCO_CAKE, 15000",
-        "ICE_CREAM, 5000",
-        "ZERO_COLA, 3000",
-        "RED_WINE, 60000",
-        "CHAMPAGNE, 25000"
+        "MUSHROOM_SOUP, 6_000",
+        "TAPAS, 5_500",
+        "CAESAR_SALAD, 8_000",
+        "T_BONE_STEAK, 55_000",
+        "BBQ_RIBS, 54_000",
+        "SEAFOOD_PASTA, 35_000",
+        "CHRISTMAS_PASTA, 25_000",
+        "CHOCO_CAKE, 15_000",
+        "ICE_CREAM, 5_000",
+        "ZERO_COLA, 3_000",
+        "RED_WINE, 60_000",
+        "CHAMPAGNE, 25_000"
     )
     fun `메뉴를 통해 가격을 가져오는 기능 테스트`(menu: Menu, expectedPrice: Int) {
-        assertThat(Menu.getPrice(menu)).isEqualTo(expectedPrice)
+        // When
+        val price = Menu.getPrice(menu)
+
+        // Then
+        assertThat(price).isEqualTo(expectedPrice)
     }
 
     @ParameterizedTest
@@ -81,7 +90,11 @@ class MenuTest {
         "CHAMPAGNE, 샴페인"
     )
     fun `메뉴를 통해 이름을 가져오는 기능 테스트`(menu: Menu, expectedName: String) {
-        assertThat(Menu.getName(menu)).isEqualTo(expectedName)
+        // When
+        val name = Menu.getName(menu)
+
+        // Then
+        assertThat(name).isEqualTo(expectedName)
     }
 
     @ParameterizedTest
@@ -89,7 +102,11 @@ class MenuTest {
         "제로콜라, true", "티본스테이크, false", "해산물파스타, false"
     )
     fun `특정 이름의 메뉴가 음료인지 판별하는 기능 테스트`(menuName: String, expectedIsBeverage: Boolean) {
-        assertThat(Menu.isBeverage(menuName)).isEqualTo(expectedIsBeverage)
+        // When
+        val result = Menu.isBeverage(menuName)
+
+        // Then
+        assertThat(result).isEqualTo(expectedIsBeverage)
     }
 
     @ParameterizedTest
@@ -97,6 +114,10 @@ class MenuTest {
         "양송이수프, true", "시저샐러드, true", "코카콜라, false", "생크림케이크, false"
     )
     fun `특정 이름의 메뉴가 메뉴판에 있는 메뉴인지 판별하는 기능 테스트`(menuName: String, hasMenu: Boolean) {
-        assertThat(Menu.hasMenu(menuName)).isEqualTo(hasMenu)
+        // When
+        val result = Menu.hasMenu(menuName)
+
+        // Then
+        assertThat(result).isEqualTo(hasMenu)
     }
 }

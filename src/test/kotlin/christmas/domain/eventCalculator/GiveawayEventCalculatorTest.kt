@@ -6,6 +6,9 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 class GiveawayEventCalculatorTest {
+    private lateinit var totalPrice: TotalPrice
+    private lateinit var giveawayEventCalculator: GiveawayEventCalculator
+
     @ParameterizedTest
     @CsvSource(
         "100_000 : false",
@@ -15,10 +18,15 @@ class GiveawayEventCalculatorTest {
         delimiter = ':'
     )
     fun `이벤트 참여 자격을 판별하는 기능 테스트`(price: Int, expected: Boolean) {
-        val totalPrice = TotalPrice(price)
-        val giveawayEventCalculator = GiveawayEventCalculator(totalPrice)
+        // Given
+        totalPrice = TotalPrice(price)
+        giveawayEventCalculator = GiveawayEventCalculator(totalPrice)
 
-        assertThat(giveawayEventCalculator.isEligibleForEvent()).isEqualTo(expected)
+        // When
+        val result = giveawayEventCalculator.isEligibleForEvent()
+
+        // Then
+        assertThat(result).isEqualTo(expected)
     }
 
     @ParameterizedTest
@@ -30,9 +38,14 @@ class GiveawayEventCalculatorTest {
         delimiter = ':'
     )
     fun `할인 금액을 계산하는 기능 테스트`(price: Int, expectedDiscount: Int) {
-        val totalPrice = TotalPrice(price)
-        val giveawayEventCalculator = GiveawayEventCalculator(totalPrice)
+        // Given
+        totalPrice = TotalPrice(price)
+        giveawayEventCalculator = GiveawayEventCalculator(totalPrice)
 
-        assertThat(giveawayEventCalculator.getDiscount()).isEqualTo(expectedDiscount)
+        // When
+        val calculatedDiscount = giveawayEventCalculator.getDiscount()
+
+        // Then
+        assertThat(calculatedDiscount).isEqualTo(expectedDiscount)
     }
 }
