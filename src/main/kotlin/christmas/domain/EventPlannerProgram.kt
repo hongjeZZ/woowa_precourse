@@ -8,19 +8,19 @@ class EventPlannerProgram(
     private val outputView: OutputView,
 ) {
     private lateinit var totalPrice: TotalPrice
-    private lateinit var eventPlanner: EventPlanner
+    private lateinit var eventDiscountManager: EventDiscountManager
 
     fun run() {
-        setProgram()
-        displayEventResult()
+        initProgram()
+        displayEventResults()
     }
 
-    private fun setProgram() {
+    private fun initProgram() {
         outputView.printProgramStartMessage()
         val date = Date(inputView.getValidatedDate())
         val order = Order(inputView.getValidatedOrder())
         totalPrice = TotalPrice(order.getTotalPrice())
-        eventPlanner = EventPlanner(order, date, totalPrice)
+        eventDiscountManager = EventDiscountManager(order, date, totalPrice)
 
         outputView.run {
             printBenefitPreview(date)
@@ -29,11 +29,11 @@ class EventPlannerProgram(
         }
     }
 
-    private fun displayEventResult() {
-        val giveawayMenu = eventPlanner.getGiveawayMenu()
-        val discounts = eventPlanner.getDiscounts()
-        val totalDiscounts = eventPlanner.getTotalDiscount()
-        val finalPrice = eventPlanner.getFinalPrice(totalPrice)
+    private fun displayEventResults() {
+        val giveawayMenu = eventDiscountManager.getGiveawayMenu()
+        val discounts = eventDiscountManager.getDiscounts()
+        val totalDiscounts = eventDiscountManager.getTotalDiscount()
+        val finalPrice = eventDiscountManager.getFinalPrice(totalPrice)
         val badge = Badge.getBadge(totalDiscounts)
 
         outputView.run {

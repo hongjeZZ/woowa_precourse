@@ -11,8 +11,14 @@ class WeekDayEventCalculator(
 
     override fun getDiscount(): Int {
         if (isEligibleForEvent()) {
-            return order.getMenuCount("디저트") * 2_023
+            return order.getMenuCount(WEEKDAY_EVENT_MENU_TYPE) * WEEKDAY_DISCOUNT
         }
-        return 0
+        return DEFAULT_DISCOUNT
+    }
+
+    companion object {
+        private const val WEEKDAY_DISCOUNT = 2_023
+        private const val DEFAULT_DISCOUNT = 0
+        private const val WEEKDAY_EVENT_MENU_TYPE = "디저트"
     }
 }

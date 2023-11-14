@@ -1,6 +1,7 @@
 package christmas.validator
 
 import christmas.util.Splitter
+import christmas.validator.Error.INVALID_ORDER_ERROR
 
 class OrderValidator {
     private val menuValidator = MenuValidator()
@@ -14,7 +15,9 @@ class OrderValidator {
     }
 
     private fun requireValidOrders(orders: List<String>) {
-        require(orders.all { it.isNotBlank() }) { "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요." }
+        require(orders.all { order ->
+            order.isNotBlank()
+        }) { INVALID_ORDER_ERROR }
     }
 
     private fun requireValidMenuAndCount(menus: List<String>, menuCounts: List<Int>) {
@@ -30,9 +33,9 @@ class OrderValidator {
             Pair(menus, menuCounts)
 
         } catch (e: IndexOutOfBoundsException) {
-            throw IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.")
+            throw IllegalArgumentException(INVALID_ORDER_ERROR)
         } catch (e: NumberFormatException) {
-            throw IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.")
+            throw IllegalArgumentException(INVALID_ORDER_ERROR)
         }
     }
 }

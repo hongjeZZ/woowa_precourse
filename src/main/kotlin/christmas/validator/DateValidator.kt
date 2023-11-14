@@ -1,20 +1,27 @@
 package christmas.validator
 
+import christmas.validator.Error.INVALID_DATE_ERROR
+
 class DateValidator {
     fun validate(inputDate: String) {
         val date = parseToInt(inputDate)
-        requireValidNumberRange(date)
+        requireValidDateRange(date)
     }
 
     private fun parseToInt(inputDate: String): Int {
         return try {
             inputDate.toInt()
         } catch (e: NumberFormatException) {
-            throw IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.")
+            throw IllegalArgumentException(INVALID_DATE_ERROR)
         }
     }
 
-    private fun requireValidNumberRange(date: Int) {
-        require(date in 1..31) { "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요." }
+    private fun requireValidDateRange(date: Int) {
+        require(date in DATE_RANGE_START..DATE_RANGE_END) { INVALID_DATE_ERROR }
+    }
+
+    companion object {
+        private const val DATE_RANGE_START = 1
+        private const val DATE_RANGE_END = 31
     }
 }

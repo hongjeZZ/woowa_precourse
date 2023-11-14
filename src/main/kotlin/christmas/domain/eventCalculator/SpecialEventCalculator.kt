@@ -10,8 +10,13 @@ class SpecialEventCalculator(
 
     override fun getDiscount(): Int {
         if (isEligibleForEvent()) {
-            return 1_000
+            return SPECIAL_DISCOUNT_AMOUNT
         }
-        return 0
+        return DEFAULT_DISCOUNT_AMOUNT
+    }
+
+    companion object {
+        private const val SPECIAL_DISCOUNT_AMOUNT = 1_000
+        private const val DEFAULT_DISCOUNT_AMOUNT = 0
     }
 }

@@ -1,22 +1,27 @@
 package christmas.domain
 
-import christmas.domain.eventCalculator.*
+import christmas.domain.eventCalculator.ChristmasEventCalculator
+import christmas.domain.eventCalculator.EventCalculator
+import christmas.domain.eventCalculator.GiveawayEventCalculator
+import christmas.domain.eventCalculator.SpecialEventCalculator
+import christmas.domain.eventCalculator.WeekDayEventCalculator
+import christmas.domain.eventCalculator.WeekendEventCalculator
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
-class EventPlannerTest {
+class EventDiscountManagerTest {
     private lateinit var order: Order
     private lateinit var date: Date
     private lateinit var totalPrice: TotalPrice
-    private lateinit var eventPlanner: EventPlanner
+    private lateinit var eventDiscountManager: EventDiscountManager
     private lateinit var calculators: List<EventCalculator>
 
     private fun initEventPlanner(orderInput: String, dateNumber: Int) {
         order = Order(orderInput)
         date = Date(dateNumber)
         totalPrice = TotalPrice(order.getTotalPrice())
-        eventPlanner = EventPlanner(order, date, totalPrice)
+        eventDiscountManager = EventDiscountManager(order, date, totalPrice)
     }
 
     private fun initCalculators(order: Order, date: Date, totalPrice: TotalPrice) {
@@ -49,7 +54,7 @@ class EventPlannerTest {
         val expectedDiscounts = calculators.map { it.getDiscount() }
 
         // When
-        val resultDiscounts = eventPlanner.getDiscounts()
+        val resultDiscounts = eventDiscountManager.getDiscounts()
 
         // Then
         assertThat(resultDiscounts).isEqualTo(expectedDiscounts)
@@ -75,7 +80,7 @@ class EventPlannerTest {
         val expectedTotalDiscount = calculators.sumOf { it.getDiscount() }
 
         // When
-        val resultTotalDiscount = eventPlanner.getTotalDiscount()
+        val resultTotalDiscount = eventDiscountManager.getTotalDiscount()
 
         // Then
         assertThat(resultTotalDiscount).isEqualTo(expectedTotalDiscount)
@@ -99,10 +104,10 @@ class EventPlannerTest {
         initEventPlanner(orderInput, dateNumber)
         val giveawayEventCalculator = GiveawayEventCalculator(totalPrice)
         val expectedFinalPrice =
-            totalPrice.getPrice() - (eventPlanner.getTotalDiscount() - (giveawayEventCalculator.getDiscount()))
+            totalPrice.getPrice() - (eventDiscountManager.getTotalDiscount() - (giveawayEventCalculator.getDiscount()))
 
         // When
-        val resultFinalPrice = eventPlanner.getFinalPrice(totalPrice)
+        val resultFinalPrice = eventDiscountManager.getFinalPrice(totalPrice)
 
         // Then
         assertThat(resultFinalPrice).isEqualTo(expectedFinalPrice)
@@ -121,7 +126,7 @@ class EventPlannerTest {
         initEventPlanner(orderInput, 1)
 
         // When
-        val freeMenu = eventPlanner.getGiveawayMenu()
+        val freeMenu = eventDiscountManager.getGiveawayMenu()
 
         // Then
         val expectedFreeMenu = Order("샴페인-1").getOrder()
@@ -139,10 +144,10 @@ class EventPlannerTest {
         // Given
         initEventPlanner(orderInput, 1)
         totalPrice = TotalPrice(order.getTotalPrice())
-        eventPlanner = EventPlanner(order, date, totalPrice)
+        eventDiscountManager = EventDiscountManager(order, date, totalPrice)
 
         // When
-        val freeMenu = eventPlanner.getGiveawayMenu()
+        val freeMenu = eventDiscountManager.getGiveawayMenu()
 
         // Then
         assertThat(freeMenu).isNull()
