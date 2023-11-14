@@ -1,5 +1,6 @@
 package christmas.domain.eventCalculator
 
+import christmas.domain.Menu
 import christmas.domain.TotalPrice
 
 class GiveawayEventCalculator(private val totalPrice: TotalPrice) : EventCalculator(totalPrice) {
@@ -7,7 +8,7 @@ class GiveawayEventCalculator(private val totalPrice: TotalPrice) : EventCalcula
 
     override fun getDiscount(): Int {
         if (isEligibleForEvent()) {
-            return 25_000
+            return Menu.getPrice(Menu.CHAMPAGNE)
         }
         return 0
     }

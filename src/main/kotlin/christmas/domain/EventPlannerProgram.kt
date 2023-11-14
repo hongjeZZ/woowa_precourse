@@ -7,25 +7,21 @@ class EventPlannerProgram(
     private val inputView: InputView,
     private val outputView: OutputView,
 ) {
-    private lateinit var date: Date
-    private lateinit var order: Order
     private lateinit var totalPrice: TotalPrice
     private lateinit var eventPlanner: EventPlanner
 
     fun run() {
-        getUserDetails()
-        displayUserDetails()
+        setProgram()
         displayEventResult()
     }
 
-    private fun getUserDetails() {
+    private fun setProgram() {
         outputView.printProgramStartMessage()
-        date = Date(inputView.getValidatedDate())
-        order = Order(inputView.getValidatedOrder())
+        val date = Date(inputView.getValidatedDate())
+        val order = Order(inputView.getValidatedOrder())
         totalPrice = TotalPrice(order.getTotalPrice())
-    }
+        eventPlanner = EventPlanner(order, date, totalPrice)
 
-    private fun displayUserDetails() {
         outputView.run {
             printBenefitPreview(date)
             printOrderDetails(order)
@@ -34,14 +30,18 @@ class EventPlannerProgram(
     }
 
     private fun displayEventResult() {
-        eventPlanner = EventPlanner(order, date, totalPrice)
+        val giveawayMenu = eventPlanner.getGiveawayMenu()
+        val discounts = eventPlanner.getDiscounts()
+        val totalDiscounts = eventPlanner.getTotalDiscount()
+        val finalPrice = eventPlanner.getFinalPrice(totalPrice)
+        val badge = Badge.getBadge(totalDiscounts)
 
         outputView.run {
-            printGiveawayMenu(eventPlanner.getGiveawayMenu())
-            printDiscountDetails(eventPlanner.getDiscounts())
-            printTotalDiscount(eventPlanner.getTotalDiscount())
-            printFinalPrice(eventPlanner.getFinalPrice(totalPrice))
-            printBadge(eventPlanner.createBadge())
+            printGiveawayMenu(giveawayMenu)
+            printDiscountDetails(discounts)
+            printTotalDiscount(totalDiscounts)
+            printFinalPrice(finalPrice)
+            printBadge(badge)
         }
     }
 }

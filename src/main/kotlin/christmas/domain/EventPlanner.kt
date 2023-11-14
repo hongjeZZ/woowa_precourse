@@ -42,6 +42,4 @@ class EventPlanner(order: Order, date: Date, totalPrice: TotalPrice) {
     fun getFinalPrice(totalPrice: TotalPrice): Int {
         return totalPrice.applyDiscount(totalDiscount - giveawayEventCalculator.getDiscount())
     }
-
-    fun createBadge(): Badge = Badge.getBadge(totalDiscount)
 }
