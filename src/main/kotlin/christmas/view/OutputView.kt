@@ -23,7 +23,7 @@ class OutputView {
 
     private fun printOrder(order: Order) {
         order.getOrder().entries.forEach { (menu, count) ->
-            println("${Menu.getName(menu)} ${count}개")
+            println("${menu.getName(menu)} ${count}개")
         }
     }
 

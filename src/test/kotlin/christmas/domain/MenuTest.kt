@@ -45,7 +45,7 @@ class MenuTest {
     )
     fun `메뉴를 통해 타입을 가져오는 기능 테스트`(menu: Menu, expectedType: String) {
         // When
-        val typeName = Menu.getType(menu)
+        val typeName = menu.getType(menu)
 
         // Then
         assertThat(typeName).isEqualTo(expectedType)
@@ -91,7 +91,7 @@ class MenuTest {
     )
     fun `메뉴를 통해 이름을 가져오는 기능 테스트`(menu: Menu, expectedName: String) {
         // When
-        val name = Menu.getName(menu)
+        val name = menu.getName(menu)
 
         // Then
         assertThat(name).isEqualTo(expectedName)

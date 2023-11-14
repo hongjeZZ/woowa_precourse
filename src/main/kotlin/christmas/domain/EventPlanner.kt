@@ -5,11 +5,6 @@ import christmas.domain.eventCalculator.*
 class EventPlanner(order: Order, date: Date, totalPrice: TotalPrice) {
     private val eventCalculators = setCalculators(order, date, totalPrice)
     private val giveawayEventCalculator = GiveawayEventCalculator(totalPrice)
-    private var totalDiscount = 0
-
-    init {
-        calculateTotalDiscount()
-    }
 
     private fun setCalculators(order: Order, date: Date, totalPrice: TotalPrice): List<EventCalculator> {
         val calculators = mutableListOf<EventCalculator>()
@@ -18,10 +13,6 @@ class EventPlanner(order: Order, date: Date, totalPrice: TotalPrice) {
         calculators.add(WeekendEventCalculator(order, date, totalPrice))
         calculators.add(SpecialEventCalculator(date, totalPrice))
         return calculators.toList()
-    }
-
-    private fun calculateTotalDiscount() {
-        totalDiscount = getDiscounts().sum()
     }
 
     fun getDiscounts(): List<Int> {
@@ -37,9 +28,9 @@ class EventPlanner(order: Order, date: Date, totalPrice: TotalPrice) {
         return null
     }
 
-    fun getTotalDiscount(): Int = totalDiscount
+    fun getTotalDiscount(): Int = getDiscounts().sum()
 
     fun getFinalPrice(totalPrice: TotalPrice): Int {
-        return totalPrice.applyDiscount(totalDiscount - giveawayEventCalculator.getDiscount())
+        return totalPrice.applyDiscount(getTotalDiscount() - giveawayEventCalculator.getDiscount())
     }
 }

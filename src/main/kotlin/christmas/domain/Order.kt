@@ -24,7 +24,7 @@ class Order(inputOrders: String) {
     fun getMenuCount(typeName: String): Int {
         var sumOfCount = 0
         for ((menu, count) in _order.entries) {
-            if (Menu.getType(menu) == typeName) {
+            if (menu.getType(menu) == typeName) {
                 sumOfCount += count
             }
         }
@@ -32,6 +32,6 @@ class Order(inputOrders: String) {
     }
 
     fun getTotalPrice(): Int = _order.entries.sumOf { (menu, count) ->
-            Menu.getPrice(menu) * count
+        Menu.getPrice(menu) * count
     }
 }

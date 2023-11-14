@@ -18,17 +18,17 @@ enum class Menu(
     RED_WINE("레드와인", 60_000, "음료"),
     CHAMPAGNE("샴페인", 25_000, "음료");
 
-    companion object {
-        fun getType(menu: Menu): String {
-            return menu.type
-        }
+    fun getType(menu: Menu): String {
+        return menu.type
+    }
 
+    fun getName(menu: Menu): String {
+        return menu.menuName
+    }
+
+    companion object {
         fun getPrice(menu: Menu): Int {
             return menu.price
-        }
-
-        fun getName(menu: Menu): String {
-            return menu.menuName
         }
 
         fun getMenu(name: String): Menu {
