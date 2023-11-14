@@ -9,7 +9,7 @@ enum class Badge(
     TREE("트리", 15_000),
     SANTA("산타", 20_000);
 
-    fun getName(badge: Badge) = badgeName
+    fun getName(badge: Badge) = badge.badgeName
 
     companion object {
         fun getBadge(totalDiscount: Int): Badge {
