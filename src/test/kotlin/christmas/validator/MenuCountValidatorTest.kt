@@ -42,7 +42,7 @@ class MenuCountValidatorTest {
         assertThrows<IllegalArgumentException> {
             validator.validate(invalidMenuCounts)
         }.also { exception ->
-            assertThat(exception.message).contains("[ERROR] 메뉴는 최대 20개까지만 주문할 수 있습니다.")
+            assertThat(exception.message).contains("[ERROR] 메뉴는 최대 20개까지 주문할 수 있습니다. 다시 입력해 주세요.")
         }
     }
 }

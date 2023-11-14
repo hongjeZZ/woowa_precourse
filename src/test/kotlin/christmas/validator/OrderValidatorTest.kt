@@ -47,7 +47,7 @@ class OrderValidatorTest {
     @ParameterizedTest
     @ValueSource(strings = ["양송이수프-5,제로콜라-5,아이스크림-5,바비큐립-6"])
     fun `주문 검증 테스트 - 메뉴의 개수가 20개를 초과한 경우`(invalidOrder: String) {
-        assertInvalidOrderException(invalidOrder, "[ERROR] 메뉴는 최대 20개까지만 주문할 수 있습니다.")
+        assertInvalidOrderException(invalidOrder, "[ERROR] 메뉴는 최대 20개까지 주문할 수 있습니다. 다시 입력해 주세요.")
     }
 
     @ParameterizedTest
