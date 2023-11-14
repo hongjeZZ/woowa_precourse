@@ -6,7 +6,7 @@ import christmas.domain.TotalPrice
 class ChristmasEventCalculator(
     private val date: Date, totalPrice: TotalPrice
 ) : EventCalculator(totalPrice) {
-    override fun isEligibleForEvent(): Boolean = super.isEligibleForEvent() && date.isBeforeDate(25)
+    override fun isEligibleForEvent(): Boolean = super.isEligibleForEvent() && date.isBeforeChristmas()
 
     override fun getDiscount(): Int {
         if (isEligibleForEvent()) {

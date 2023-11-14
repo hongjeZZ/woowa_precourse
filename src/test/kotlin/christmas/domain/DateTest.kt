@@ -1,6 +1,5 @@
 package christmas.domain
 
-import christmas.domain.Date
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -42,15 +41,15 @@ class DateTest {
 
     @ParameterizedTest
     @CsvSource(
-        "5, false",
-        "14, false",
-        "15, true",
-        "31, true"
+        "5, true",
+        "14, true",
+        "26, false",
+        "31, false"
     )
-    fun `날짜가 특정 날짜 이내면 true, 아니면 false를 반환한다`(dateNumber: Int, expected: Boolean) {
-        val date = Date(15)
+    fun `날짜가 25일 이전이면 true, 아니면 false를 반환한다`(dateNumber: Int, expected: Boolean) {
+        val date = Date(dateNumber)
 
-        assertThat(date.isBeforeDate(dateNumber)).isEqualTo(expected)
+        assertThat(date.isBeforeChristmas()).isEqualTo(expected)
     }
 
     @ParameterizedTest

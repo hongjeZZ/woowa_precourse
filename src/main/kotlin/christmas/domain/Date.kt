@@ -5,7 +5,7 @@ class Date(private val _date: Int) {
 
     fun isSpecialDay(): Boolean = _date in setOf(3, 10, 17, 24, 25, 31)
 
-    fun isBeforeDate(date: Int): Boolean = _date <= date
+    fun isBeforeChristmas(): Boolean = _date <= 25
 
     fun getMultipliedDate(multiplier: Int): Int = _date * multiplier
 
