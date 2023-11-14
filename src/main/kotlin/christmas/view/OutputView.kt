@@ -76,6 +76,6 @@ class OutputView {
 
     fun printBadge(badge: Badge) {
         println("\n<12월 이벤트 배지>")
-        print(badge)
+        print(badge.getName(badge))
     }
 }
