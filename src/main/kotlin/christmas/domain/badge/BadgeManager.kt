@@ -1,4 +1,4 @@
-package christmas.domain
+package christmas.domain.badge
 
 class BadgeManager {
     fun createBadge(totalDiscount: Int): Badge {

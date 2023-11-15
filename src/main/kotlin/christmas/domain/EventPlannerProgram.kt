@@ -1,5 +1,6 @@
 package christmas.domain
 
+import christmas.domain.badge.BadgeManager
 import christmas.view.InputView
 import christmas.view.OutputView
 

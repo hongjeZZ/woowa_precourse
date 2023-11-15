@@ -1,4 +1,4 @@
-package christmas.domain
+package christmas.domain.badge
 
 enum class Badge(
     private val badgeName: String,

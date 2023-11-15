@@ -1,6 +1,6 @@
 package christmas.view
 
-import christmas.domain.Badge
+import christmas.domain.badge.Badge
 import christmas.domain.Date
 import christmas.domain.Order
 import christmas.domain.TotalPrice
