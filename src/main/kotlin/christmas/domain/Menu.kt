@@ -18,29 +18,21 @@ enum class Menu(
     RED_WINE("레드와인", 60_000, "음료"),
     CHAMPAGNE("샴페인", 25_000, "음료");
 
-    fun getType(menu: Menu): String {
-        return menu.type
-    }
+    fun getType(menu: Menu): String = menu.type
 
-    fun getName(menu: Menu): String {
-        return menu.menuName
-    }
+    fun getName(menu: Menu): String = menu.menuName
 
     companion object {
-        fun getPrice(menu: Menu): Int {
-            return menu.price
+        fun getPrice(menu: Menu): Int = menu.price
+
+        fun getMenu(name: String): Menu = entries.find { menu ->
+            menu.menuName == name
+        }!!
+
+        fun hasMenu(name: String): Boolean = entries.any { menu ->
+            menu.menuName == name
         }
 
-        fun getMenu(name: String): Menu {
-            return entries.find { it.menuName == name }!!
-        }
-
-        fun hasMenu(name: String): Boolean {
-            return entries.any { it.menuName == name }
-        }
-
-        fun isBeverage(name: String): Boolean {
-            return getMenu(name).type == "음료"
-        }
+        fun isBeverage(name: String): Boolean = getMenu(name).type == "음료"
     }
 }

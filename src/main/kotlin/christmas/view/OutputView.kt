@@ -42,6 +42,7 @@ class OutputView {
     fun printDiscountDetails(discounts: List<Int>) {
         printBlankLine()
         println(DISCOUNT_DETAILS_HEADER)
+
         if (discounts.sum() != 0) {
             printDiscount(DISCOUNT_CHRISTMAS, discounts[0])
             printDiscount(DISCOUNT_WEEKDAY, discounts[1])

@@ -23,6 +23,7 @@ class Order(inputOrders: String) {
 
     fun getMenuCount(typeName: String): Int {
         var sumOfCount = 0
+
         for ((menu, count) in _order.entries) {
             if (menu.getType(menu) == typeName) {
                 sumOfCount += count
