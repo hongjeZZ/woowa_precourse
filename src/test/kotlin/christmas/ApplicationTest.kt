@@ -40,10 +40,58 @@ class ApplicationTest : NsTest() {
     }
 
     @Test
+    fun `날짜 예외 테스트 - 날짜 범위보다 작은 값을 입력한 경우`() {
+        assertSimpleTest {
+            runException("0")
+            assertThat(output()).contains("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.")
+        }
+    }
+
+    @Test
+    fun `날짜 예외 테스트 - 날짜 범위보다 큰 값을 입력한 경우`() {
+        assertSimpleTest {
+            runException("32")
+            assertThat(output()).contains("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.")
+        }
+    }
+
+    @Test
     fun `주문 예외 테스트`() {
         assertSimpleTest {
             runException("3", "제로콜라-a")
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.")
+        }
+    }
+
+    @Test
+    fun `주문 예외 테스트 - 중복된 주문을 입력한 경우`() {
+        assertSimpleTest {
+            runException("3", "타파스-1,제로콜라-1,타파스-1")
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.")
+        }
+    }
+
+    @Test
+    fun `주문 예외 테스트 - 메뉴판에 없는 메뉴를 입력한 경우`() {
+        assertSimpleTest {
+            runException("3", "초코우유-1")
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.")
+        }
+    }
+
+    @Test
+    fun `주문 예외 테스트 - 음료만 주문하는 경우`() {
+        assertSimpleTest {
+            runException("3", "제로콜라-1,레드와인-1")
+            assertThat(output()).contains("[ERROR] 음료만 주문할 수 없습니다. 다시 입력해 주세요.")
+        }
+    }
+
+    @Test
+    fun `주문 예외 테스트 - 메뉴의 개수가 20개를 초과할 경우`() {
+        assertSimpleTest {
+            runException("3", "티본스테이크-5,레드와인-5,아이스크림-5,초코케이크-6")
+            assertThat(output()).contains("[ERROR] 메뉴는 최대 20개까지 주문할 수 있습니다. 다시 입력해 주세요.")
         }
     }
 
