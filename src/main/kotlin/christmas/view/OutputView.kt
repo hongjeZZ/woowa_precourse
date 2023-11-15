@@ -82,7 +82,7 @@ class OutputView {
     fun printBadge(badge: Badge) {
         printBlankLine()
         println(BADGE_HEADER)
-        print(badge.getName(badge))
+        print(badge.getName())
     }
 
     private fun printBlankLine() {

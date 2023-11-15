@@ -9,6 +9,7 @@ class EventPlannerProgram(
 ) {
     private lateinit var totalPrice: TotalPrice
     private lateinit var eventDiscountManager: EventDiscountManager
+    private val eventBadgeManager = EventBadgeManager()
 
     fun run() {
         initProgram()
@@ -32,14 +33,14 @@ class EventPlannerProgram(
     private fun displayEventResults() {
         val giveawayMenu = eventDiscountManager.getGiveawayMenu()
         val discounts = eventDiscountManager.getDiscounts()
-        val totalDiscounts = eventDiscountManager.getTotalDiscount()
+        val totalDiscount = eventDiscountManager.getTotalDiscount()
         val finalPrice = eventDiscountManager.getFinalPrice(totalPrice)
-        val badge = Badge.getBadge(totalDiscounts)
+        val badge = eventBadgeManager.createBadge(totalDiscount)
 
         outputView.run {
             printGiveawayMenu(giveawayMenu)
             printDiscountDetails(discounts)
-            printTotalDiscount(totalDiscounts)
+            printTotalDiscount(totalDiscount)
             printFinalPrice(finalPrice)
             printBadge(badge)
         }
