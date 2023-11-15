@@ -17,7 +17,7 @@ class BadgeManagerTest {
         "NONE, 4_999",
         "NONE, 0"
     )
-    fun `createBadge should return the correct badge`(
+    fun `총 할인 금액에 따라 뱃지를 반환하는 기능 테스트`(
         expectedBadge: Badge,
         totalDiscount: Int
     ) {

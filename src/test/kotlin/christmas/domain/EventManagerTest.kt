@@ -10,18 +10,18 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
-class DiscountManagerTest {
+class EventManagerTest {
     private lateinit var order: Order
     private lateinit var date: Date
     private lateinit var totalPrice: TotalPrice
-    private lateinit var discountManager: DiscountManager
+    private lateinit var eventManager: EventManager
     private lateinit var calculators: List<EventCalculator>
 
-    private fun initEventPlanner(orderInput: String, dateNumber: Int) {
+    private fun initEventManager(orderInput: String, dateNumber: Int) {
         order = Order(orderInput)
         date = Date(dateNumber)
         totalPrice = TotalPrice(order.getTotalPrice())
-        discountManager = DiscountManager(order, date, totalPrice)
+        eventManager = EventManager(order, date, totalPrice)
     }
 
     private fun initCalculators(order: Order, date: Date, totalPrice: TotalPrice) {
@@ -49,12 +49,12 @@ class DiscountManagerTest {
         dateNumber: Int
     ) {
         // Given
-        initEventPlanner(orderInput, dateNumber)
+        initEventManager(orderInput, dateNumber)
         initCalculators(order, date, totalPrice)
         val expectedDiscounts = calculators.map { it.getDiscount() }
 
         // When
-        val resultDiscounts = discountManager.getDiscounts()
+        val resultDiscounts = eventManager.getDiscounts()
 
         // Then
         assertThat(resultDiscounts).isEqualTo(expectedDiscounts)
@@ -75,12 +75,12 @@ class DiscountManagerTest {
         dateNumber: Int
     ) {
         // Given
-        initEventPlanner(orderInput, dateNumber)
+        initEventManager(orderInput, dateNumber)
         initCalculators(order, date, totalPrice)
         val expectedTotalDiscount = calculators.sumOf { it.getDiscount() }
 
         // When
-        val resultTotalDiscount = discountManager.getTotalDiscount()
+        val resultTotalDiscount = eventManager.getTotalDiscount()
 
         // Then
         assertThat(resultTotalDiscount).isEqualTo(expectedTotalDiscount)
@@ -101,13 +101,13 @@ class DiscountManagerTest {
         dateNumber: Int
     ) {
         // Given
-        initEventPlanner(orderInput, dateNumber)
+        initEventManager(orderInput, dateNumber)
         val giveawayEventCalculator = GiveawayEventCalculator(totalPrice)
         val expectedFinalPrice =
-            totalPrice.getPrice() - (discountManager.getTotalDiscount() - (giveawayEventCalculator.getDiscount()))
+            totalPrice.getPrice() - (eventManager.getTotalDiscount() - (giveawayEventCalculator.getDiscount()))
 
         // When
-        val resultFinalPrice = discountManager.getFinalPrice(totalPrice)
+        val resultFinalPrice = eventManager.getFinalPrice(totalPrice)
 
         // Then
         assertThat(resultFinalPrice).isEqualTo(expectedFinalPrice)
@@ -123,10 +123,10 @@ class DiscountManagerTest {
     )
     fun `증정 메뉴 반환하는 기능 테스트 - 증정 메뉴를 반환하는 경우`(orderInput: String) {
         // Given
-        initEventPlanner(orderInput, 1)
+        initEventManager(orderInput, 1)
 
         // When
-        val freeMenu = discountManager.getGiveawayMenu()
+        val freeMenu = eventManager.getGiveawayMenu()
 
         // Then
         val expectedFreeMenu = Order("샴페인-1").getOrder()
@@ -142,12 +142,12 @@ class DiscountManagerTest {
     )
     fun `증정 메뉴 반환하는 기능 테스트 - null을 반환하는 경우`(orderInput: String) {
         // Given
-        initEventPlanner(orderInput, 1)
+        initEventManager(orderInput, 1)
         totalPrice = TotalPrice(order.getTotalPrice())
-        discountManager = DiscountManager(order, date, totalPrice)
+        eventManager = EventManager(order, date, totalPrice)
 
         // When
-        val freeMenu = discountManager.getGiveawayMenu()
+        val freeMenu = eventManager.getGiveawayMenu()
 
         // Then
         assertThat(freeMenu).isNull()

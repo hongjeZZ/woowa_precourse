@@ -7,7 +7,7 @@ import christmas.domain.eventCalculator.SpecialEventCalculator
 import christmas.domain.eventCalculator.WeekDayEventCalculator
 import christmas.domain.eventCalculator.WeekendEventCalculator
 
-class DiscountManager(order: Order, date: Date, totalPrice: TotalPrice) {
+class EventManager(order: Order, date: Date, totalPrice: TotalPrice) {
     private val eventCalculators = createCalculators(order, date, totalPrice)
     private val giveawayEventCalculator = GiveawayEventCalculator(totalPrice)
 

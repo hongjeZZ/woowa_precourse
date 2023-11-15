@@ -10,7 +10,7 @@ class EventPlannerProgram(
     private lateinit var date: Date
     private lateinit var order: Order
     private lateinit var totalPrice: TotalPrice
-    private lateinit var discountManager: DiscountManager
+    private lateinit var eventManager: EventManager
     private lateinit var badgeManager: BadgeManager
     private var totalDiscount = 0
 
@@ -41,7 +41,7 @@ class EventPlannerProgram(
     }
 
     private fun setEventManager() {
-        discountManager = DiscountManager(order, date, totalPrice)
+        eventManager = EventManager(order, date, totalPrice)
         badgeManager = BadgeManager()
     }
 
@@ -54,22 +54,22 @@ class EventPlannerProgram(
     }
 
     private fun displayGiveawayMenu() {
-        val giveawayMenu = discountManager.getGiveawayMenu()
+        val giveawayMenu = eventManager.getGiveawayMenu()
         outputView.printGiveawayMenu(giveawayMenu)
     }
 
     private fun displayDiscountDetails() {
-        val discounts = discountManager.getDiscounts()
+        val discounts = eventManager.getDiscounts()
         outputView.printDiscountDetails(discounts)
     }
 
     private fun displayTotalDiscount() {
-        totalDiscount = discountManager.getTotalDiscount()
+        totalDiscount = eventManager.getTotalDiscount()
         outputView.printTotalDiscount(totalDiscount)
     }
 
     private fun displayFinalPrice() {
-        val finalPrice = discountManager.getFinalPrice(totalPrice)
+        val finalPrice = eventManager.getFinalPrice(totalPrice)
         outputView.printFinalPrice(finalPrice)
     }
 
