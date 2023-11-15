@@ -7,22 +7,32 @@ class EventPlannerProgram(
     private val inputView: InputView,
     private val outputView: OutputView,
 ) {
+    private lateinit var date: Date
+    private lateinit var order: Order
     private lateinit var totalPrice: TotalPrice
     private lateinit var discountManager: DiscountManager
-    private val badgeManager = BadgeManager()
+    private lateinit var badgeManager: BadgeManager
+    private var totalDiscount = 0
 
     fun run() {
+        printProgramStartMessage()
         initProgram()
+        printUserDetails()
+        setEventManager()
         displayEventResults()
     }
 
-    private fun initProgram() {
+    private fun printProgramStartMessage() {
         outputView.printProgramStartMessage()
-        val date = Date(inputView.getValidatedDate())
-        val order = Order(inputView.getValidatedOrder())
-        totalPrice = TotalPrice(order.getTotalPrice())
-        discountManager = DiscountManager(order, date, totalPrice)
+    }
 
+    private fun initProgram() {
+        date = Date(inputView.getValidatedDate())
+        order = Order(inputView.getValidatedOrder())
+        totalPrice = TotalPrice(order.getTotalPrice())
+    }
+
+    private fun printUserDetails() {
         outputView.run {
             printBenefitPreview(date)
             printOrderDetails(order)
@@ -30,19 +40,41 @@ class EventPlannerProgram(
         }
     }
 
-    private fun displayEventResults() {
-        val giveawayMenu = discountManager.getGiveawayMenu()
-        val discounts = discountManager.getDiscounts()
-        val totalDiscount = discountManager.getTotalDiscount()
-        val finalPrice = discountManager.getFinalPrice(totalPrice)
-        val badge = badgeManager.createBadge(totalDiscount)
+    private fun setEventManager() {
+        discountManager = DiscountManager(order, date, totalPrice)
+        badgeManager = BadgeManager()
+    }
 
-        outputView.run {
-            printGiveawayMenu(giveawayMenu)
-            printDiscountDetails(discounts)
-            printTotalDiscount(totalDiscount)
-            printFinalPrice(finalPrice)
-            printBadge(badge)
-        }
+    private fun displayEventResults() {
+        displayGiveawayMenu()
+        displayDiscountDetails()
+        displayTotalDiscount()
+        displayFinalPrice()
+        displayBadge()
+    }
+
+    private fun displayGiveawayMenu() {
+        val giveawayMenu = discountManager.getGiveawayMenu()
+        outputView.printGiveawayMenu(giveawayMenu)
+    }
+
+    private fun displayDiscountDetails() {
+        val discounts = discountManager.getDiscounts()
+        outputView.printDiscountDetails(discounts)
+    }
+
+    private fun displayTotalDiscount() {
+        totalDiscount = discountManager.getTotalDiscount()
+        outputView.printTotalDiscount(totalDiscount)
+    }
+
+    private fun displayFinalPrice() {
+        val finalPrice = discountManager.getFinalPrice(totalPrice)
+        outputView.printFinalPrice(finalPrice)
+    }
+
+    private fun displayBadge() {
+        val badge = badgeManager.createBadge(totalDiscount)
+        outputView.printBadge(badge)
     }
 }
